@@ -1,0 +1,32 @@
+name: kurio
+
+services:
+  kurio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kurio
+    restart: always
+    networks:
+      - traefik
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+
+      # Domínio
+      - "traefik.http.routers.kurio.rule=Host(`kurio.arpdev.online`) || Host(`www.kurio.arpdev.online`)"
+      - "traefik.http.routers.kurio.entrypoints=websecure"
+      - "traefik.http.routers.kurio.tls.certresolver=myresolver"
+
+      # Porta interna do Nginx
+      - "traefik.http.services.kurio.loadbalancer.server.port=80"
+
+networks:
+  traefik:
+    external: true

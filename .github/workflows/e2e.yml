@@ -1,0 +1,54 @@
+name: E2E
+
+# Roda só em PR (não bloqueia o deploy): Playwright contra o build demo, em Chromium
+# desktop (1440), mobile (390) e tablet (768).
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    name: E2E (Playwright)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Instalar o Chromium do Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Fluxos (12 grupos do enunciado + responsividade)
+        run: npx playwright test e2e/specs
+
+      # A regressão visual só roda se houver baselines geradas em Linux (workflow "Baselines visuais").
+      - name: Regressão visual
+        run: |
+          if ls e2e/visual/visual.spec.ts-snapshots/*-linux.png >/dev/null 2>&1; then
+            npx playwright test e2e/visual
+          else
+            echo "Sem baselines Linux versionadas: regressão visual pulada."
+          fi
+
+      - name: Relatório do Playwright
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            reports/playwright
+            test-results
+          retention-days: 7
+          if-no-files-found: ignore

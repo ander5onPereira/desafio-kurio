@@ -1,0 +1,22 @@
+node_modules
+dist
+.git
+.env
+.env.local
+.env.*.local
+*.log
+.vscode
+.idea
+# Não entram no build da imagem (o build demo só precisa de src, public e configs)
+e2e
+docs
+design
+Desktop
+reports
+test-results
+playwright-report
+.scratch
+PLANO.md
+deploy_key*
+*.pem
+.github

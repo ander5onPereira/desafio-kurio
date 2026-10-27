@@ -1,0 +1,33 @@
+name: Baselines visuais
+
+# Gera as imagens de referência da regressão visual em Linux (as de Windows/macOS não são versionadas).
+# Rode manualmente (Actions → Baselines visuais → Run workflow), baixe o artefato
+# "visual-baselines-linux", copie os PNG para e2e/visual/visual.spec.ts-snapshots/ e faça o commit.
+on:
+  workflow_dispatch:
+
+jobs:
+  baselines:
+    name: Gerar baselines (Linux)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx playwright install --with-deps chromium
+
+      - name: Atualizar snapshots
+        run: npx playwright test e2e/visual --update-snapshots
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: visual-baselines-linux
+          path: e2e/visual/visual.spec.ts-snapshots/*-linux.png
+          retention-days: 14
