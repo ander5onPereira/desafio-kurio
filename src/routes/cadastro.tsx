@@ -1,0 +1,25 @@
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { authStore, safeRedirect } from "@/modules/auth";
+import { AuthDialog } from "@/modules/auth/components/AuthDialog";
+import { HomePage } from "@/modules/nfts/components/HomePage";
+
+export const Route = createFileRoute("/cadastro")({
+  validateSearch: (search: Record<string, unknown>): { redirect?: string } =>
+    typeof search.redirect === "string" ? { redirect: search.redirect } : {},
+  beforeLoad: async ({ search }) => {
+    const snapshot = await authStore.ensureReady();
+    if (snapshot.isAuthenticated) throw redirect({ href: safeRedirect(search.redirect) });
+  },
+  head: () => ({ meta: [{ title: "Criar conta · Kurio" }] }),
+  component: RegisterPage,
+});
+
+function RegisterPage() {
+  const { redirect: redirectTo } = Route.useSearch();
+  return (
+    <>
+      <HomePage search={{}} onSearchChange={() => undefined} />
+      <AuthDialog mode="register" redirect={redirectTo} />
+    </>
+  );
+}
