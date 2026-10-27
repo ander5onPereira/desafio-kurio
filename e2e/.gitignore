@@ -1,0 +1,6 @@
+# Baselines visuais dependem do SO. Só as geradas em Linux (CI/Docker) são versionadas.
+visual/**/*-win32.png
+visual/**/*-darwin.png
+__screenshots__/**/*-win32.png
+__screenshots__/**/*-darwin.png
+.cache
