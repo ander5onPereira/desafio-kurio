@@ -4,9 +4,14 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-# Modo demo: lê .env.demo (VITE_ENABLE_MOCKS=true, VITE_API_URL=/api). Não há backend:
-# o "servidor" é o MSW rodando no navegador, por isso o nginx não faz proxy de /api.
-RUN npm run build:demo
+# A API é simulada: o MSW (service worker) roda NO NAVEGADOR e o build demo precisa dele ligado.
+# As variáveis ficam explícitas aqui (têm precedência sobre o .env.demo), então o deploy nunca
+# publica um build sem mocks por causa de um arquivo .env ausente. Não há backend: o nginx não faz proxy de /api.
+ENV VITE_ENABLE_MOCKS=true
+ENV VITE_MOCK_SCENARIO=default
+ENV VITE_API_URL=/api
+# Falha o build se o chunk dos mocks ou o service worker não estiverem no resultado.
+RUN npm run build:demo && ls dist/assets/enable-*.js dist/mockServiceWorker.js > /dev/null
 
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf

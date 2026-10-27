@@ -71,3 +71,17 @@ jobs:
             sleep 10
           done
           echo "Container não ficou saudável"; exit 1
+
+      # A API é simulada no navegador (MSW): confere que o site publicado serve o service worker
+      # e a SPA nas rotas diretas, pela URL pública (HTTPS via Traefik).
+      - name: Teste de fumaça na URL pública
+        run: |
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' https://kurio.arpdev.online/mockServiceWorker.js || true)
+            echo "mockServiceWorker.js: $code"
+            [ "$code" = "200" ] && break
+            sleep 10
+          done
+          [ "$code" = "200" ] || { echo "Service worker dos mocks não está sendo servido"; exit 1; }
+          curl -fsS https://kurio.arpdev.online/nft/emerald-ape-042 | grep -q '<div id="root">'
+          curl -fsS https://kurio.arpdev.online/carrinho | grep -q '<div id="root">'

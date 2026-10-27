@@ -31,3 +31,9 @@ jobs:
       # O mesmo build que vai para a VPS (mocks ligados).
       - name: Build demo
         run: npm run build:demo
+
+      # Garante que o artefato publicado leva a API simulada (MSW roda no navegador).
+      - name: Conferir mocks no build
+        run: |
+          ls dist/assets/enable-*.js dist/mockServiceWorker.js
+          grep -q "mockServiceWorker" dist/assets/enable-*.js
