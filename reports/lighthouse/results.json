@@ -1,0 +1,214 @@
+{
+  "inicio-mobile": {
+    "url": "http://localhost:4173/",
+    "runs": [
+      {
+        "scores": {
+          "performance": 79,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "lcp": 4141.62,
+        "cls": 0.0000408780360025524,
+        "tbt": 216.5,
+        "fcp": 2558.31
+      },
+      {
+        "scores": {
+          "performance": 77,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "lcp": 4200.52,
+        "cls": 0.0005983279418197868,
+        "tbt": 266.5,
+        "fcp": 2587.76
+      },
+      {
+        "scores": {
+          "performance": 77,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "lcp": 4105.952,
+        "cls": 0.0000408780360025524,
+        "tbt": 293.69049999999993,
+        "fcp": 2577.976
+      }
+    ],
+    "medians": {
+      "scores": {
+        "performance": 77,
+        "accessibility": 97,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp": 4141.62,
+      "cls": 0.0000408780360025524,
+      "tbt": 266.5,
+      "fcp": 2577.976
+    }
+  },
+  "inicio-desktop": {
+    "url": "http://localhost:4173/",
+    "runs": [
+      {
+        "scores": {
+          "performance": 97,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "lcp": 1223.3080000000002,
+        "cls": 0.0008170142516988834,
+        "tbt": 1.0000000000000568,
+        "fcp": 738.404
+      },
+      {
+        "scores": {
+          "performance": 97,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "lcp": 1162.68,
+        "cls": 0.000006809206785804143,
+        "tbt": 1.5,
+        "fcp": 717.59
+      },
+      {
+        "scores": {
+          "performance": 97,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "lcp": 1140.3439999999998,
+        "cls": 0.000006809206785804143,
+        "tbt": 0,
+        "fcp": 706.672
+      }
+    ],
+    "medians": {
+      "scores": {
+        "performance": 97,
+        "accessibility": 97,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp": 1162.68,
+      "cls": 0.000006809206785804143,
+      "tbt": 1.0000000000000568,
+      "fcp": 717.59
+    }
+  },
+  "detalhe-mobile": {
+    "url": "http://localhost:4173/nft/emerald-ape-042",
+    "runs": [
+      {
+        "scores": {
+          "performance": 83,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "lcp": 3876.9700000000003,
+        "cls": 0.0000408780360025524,
+        "tbt": 156,
+        "fcp": 2545.98
+      },
+      {
+        "scores": {
+          "performance": 83,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "lcp": 3892.478,
+        "cls": 0.0000408780360025524,
+        "tbt": 147.99999999999977,
+        "fcp": 2554.652
+      },
+      {
+        "scores": {
+          "performance": 83,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "lcp": 3873.5640000000003,
+        "cls": 0.0000408780360025524,
+        "tbt": 149,
+        "fcp": 2543.376
+      }
+    ],
+    "medians": {
+      "scores": {
+        "performance": 83,
+        "accessibility": 97,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp": 3876.9700000000003,
+      "cls": 0.0000408780360025524,
+      "tbt": 149,
+      "fcp": 2545.98
+    }
+  },
+  "detalhe-desktop": {
+    "url": "http://localhost:4173/nft/emerald-ape-042",
+    "runs": [
+      {
+        "scores": {
+          "performance": 98,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "lcp": 1042.046,
+        "cls": 0.000006809206785804143,
+        "tbt": 0,
+        "fcp": 696.812
+      },
+      {
+        "scores": {
+          "performance": 98,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "lcp": 1038.9955,
+        "cls": 0.000269179087639375,
+        "tbt": 0,
+        "fcp": 695.426
+      },
+      {
+        "scores": {
+          "performance": 98,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "lcp": 1055.8365000000001,
+        "cls": 0.000269179087639375,
+        "tbt": 0,
+        "fcp": 704.9780000000001
+      }
+    ],
+    "medians": {
+      "scores": {
+        "performance": 98,
+        "accessibility": 97,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcp": 1042.046,
+      "cls": 0.000269179087639375,
+      "tbt": 0,
+      "fcp": 696.812
+    }
+  }
+}
