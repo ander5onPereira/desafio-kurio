@@ -1,0 +1,26 @@
+node_modules
+dist
+*.local
+.env.local
+.DS_Store
+
+# Relatórios gerados (o resumo do Lighthouse em reports/lighthouse/ é versionado)
+playwright-report
+test-results
+reports/playwright
+*.tsbuildinfo
+
+# Traces e vídeos de testes
+e2e/.cache
+.scratch
+
+# Segredos (as .env.development/.env.demo/.env.example são versionadas: não têm segredo)
+.env
+deploy_key*
+*.pem
+/Makefile
+/docs
+/design
+/Desktop
+/.env.demo
+/.env.development
