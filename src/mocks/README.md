@@ -45,6 +45,8 @@ src/mocks/
 | Taxa de rede | ethereum `0.016` · polygon `0.002` · solana `0.0005` (sempre `feeEstimated: true`) |
 | Catálogo | 96 NFTs, 9 coleções, 3 redes, edições `ed-1-1` `ed-1-10` `ed-1-50` `ed-open`; ~8% esgotados |
 
+Os dados valem nos cenários `default` e `figma`; os demais falham de propósito (ex.: `offline` derruba o login). O botão do painel fica amarelo fora desses dois e o atalho "Restaurar default" volta ao normal, até com o modal de login aberto.
+
 A 1ª página (`sort=recent`, 9 itens) reproduz o Figma: Emerald Ape #042 · Sage Nomad #009 · Neon Vessel #552
 (1.99, antes 2.29, RARO) · Cosmic Bloom #118 · Violet Nomad #314 · Ivory Baron #088 · Golden Beat #207 ·
 Golden Frequency #071 · Golden Signal #160. As contagens das facetas são calculadas dos dados reais.

@@ -23,7 +23,7 @@ A fronteira é garantida por `npm run check-mocks` e por uma regra do ESLint (`n
 | --- | --- |
 | Variável de ambiente (build) | `VITE_ENABLE_MOCKS=true`, `VITE_MOCK_SCENARIO=default` (`.env.development` e `.env.demo`) |
 | URL | `/?scenario=figma` (`&reset=1` força reset). `scenario` e `reset` valem **uma vez**: saem da URL no boot (os demais parâmetros ficam), então o F5 mantém o estado e a troca feita pelo painel não é desfeita |
-| Painel flutuante | botão **"Mock · <cenário>"** no canto inferior esquerdo (só com mocks ligados). Arrastável com mouse, toque ou caneta; a posição fica em `localStorage` (`kurio.mockpanel.v1`) e o botão "Posição original" do painel a restaura. Cada cenário mostra um **"Como ver"** (definido em `tryIt` de `scenarios/definitions.ts`); "Aplicar e resetar" recarrega a página e o painel reabre com a confirmação; "Aplicar e abrir a tela de teste" leva à tela onde o efeito aparece. Com um modal aberto (login, cadastro) o app deixa o resto da página inerte, inclusive o painel |
+| Painel flutuante | botão **"Mock · <cenário>"** no canto inferior esquerdo (só com mocks ligados). Arrastável com mouse, toque ou caneta; a posição fica em `localStorage` (`kurio.mockpanel.v1`) e o botão "Posição original" do painel a restaura. Cada cenário mostra um **"Como ver"** (definido em `tryIt` de `scenarios/definitions.ts`); "Aplicar e resetar" recarrega a página e o painel reabre com a confirmação; "Aplicar e abrir a tela de teste" leva à tela onde o efeito aparece. Fora de `default`/`figma` o botão fica em **amarelo** e ganha o atalho **"Restaurar default"** (mantém sessão, carrinho e pedidos). Com um modal aberto (login, cadastro) o app deixa o resto da página inerte, inclusive o painel: só o botão e o atalho continuam clicáveis |
 | Console / testes | `await __kurio.scenario.set("order-timeout")` |
 
 Trocar de cenário **restaura o banco**; use `{ keepData: true }` para só mudar o comportamento. **Reset:** `await __kurio.reset()` (recarregue a página
@@ -37,6 +37,8 @@ para limpar o cache do app) ou o botão de reset do painel.
 | Cupons | `KURIO10` (válido, 10%) · `EXPIRADO20` (expirado) · `INVALIDO` (inexistente) · `TAXA0` (taxa de rede grátis) |
 | Código de indicação | `KURIO-2026` |
 | NFT principal dos testes | `emerald-ape-042` (edições `ed-1-1`, `ed-1-10`, `ed-1-50`, `ed-open`) |
+
+Esses dados valem nos cenários `default` e `figma`. Os outros falham de propósito: `offline` derruba o login ("Sem conexão com o servidor"), `client-errors` quebra a página do NFT e o carrinho, `coupon-invalid` / `coupon-expired` recusam qualquer cupom e `register-conflict` recusa o cadastro. O app não sabe que o erro é simulado, então confira o rótulo do botão **"Mock · <cenário>"** antes de achar que o dado de teste está errado.
 
 ## Cenários determinísticos
 

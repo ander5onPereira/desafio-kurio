@@ -5,6 +5,15 @@ Solução do desafio frontend ([enunciado](docs/DESAFIO.md)): descoberta, compra
 - **Aplicação publicada:** https://kurio.arpdev.online (build `demo`: otimizado, mocks ligados; deploy por GitHub Actions na VPS — ver [Deploy](#deploy))
 - **Decisões, limitações e desvios do Figma:** [ARCHITECTURE.md](ARCHITECTURE.md)
 
+## Observação para o avaliador
+
+Este projeto foi desenvolvido com apoio do **Claude Code (modelo Sonnet 5.5)**, para reduzir o tempo de desenvolvimento e para implementar e revisar os requisitos do [enunciado](docs/DESAFIO.md). Na prática:
+
+- **Tempo de desenvolvimento:** código, mocks, testes e documentação saíram em ciclos curtos de implementar, rodar e corrigir, o que deixou o tempo do autor para decidir, revisar e ajustar.
+- **Implementação:** feita sob regras fixas definidas pelo autor (componentes `App*` sobre tokens, sem `any`, ETH como string decimal, mocks isolados em `src/mocks`, acessibilidade como requisito). As entregas foram validadas com `npm run check`, os testes Playwright e o Lighthouse ([docs/TESTING.md](docs/TESTING.md) e [docs/PERFORMANCE.md](docs/PERFORMANCE.md)).
+- **Revisão de requisitos:** o código foi conferido contra o enunciado em auditorias. Os 12 grupos de cenários do enunciado têm spec Playwright própria (mapa em [docs/TESTING.md](docs/TESTING.md)), a fidelidade ao Figma foi conferida em 390 / 768 / 1440, e o que não foi possível seguir está em [Desvios do Figma](ARCHITECTURE.md#8-desvios-do-figma) e [Limitações conhecidas](ARCHITECTURE.md#9-limitações-conhecidas), inclusive o Lighthouse mobile abaixo de 90.
+- **Autoria:** escopo, decisões de arquitetura, validação dos resultados e commits ficaram com o autor.
+
 ## Stack
 
 React 19 · TypeScript · Vite 8 · Tailwind v4 · TanStack Router (file-based) + Query · Axios · Socket.IO client · MSW 2 (+ `@mswjs/socket.io-binding`) · Zod 4 · React Hook Form · Radix UI / shadcn (componentes `App*`) · Motion · Sonner · Vitest · Playwright · Lighthouse.
@@ -55,6 +64,8 @@ Arquivos: `.env.development`, `.env.demo` (usado por `build:demo`) e `.env.examp
 | Código de indicação | `KURIO-2026` |
 
 Também é possível criar uma conta nova em `/cadastro`.
+
+> **Os dados acima valem nos cenários `default` e `figma`.** Os demais cenários do mock falham de propósito (por exemplo, `offline` faz o login mostrar “Sem conexão com o servidor”, `client-errors` quebra a página do NFT e `coupon-invalid` recusa qualquer cupom). Se algo “parar de funcionar”, olhe o botão **“Mock · &lt;cenário&gt;”** no canto inferior esquerdo: ele fica amarelo quando há um cenário de falha ativo, e o atalho **“Restaurar default”** devolve o app ao normal (mantendo sessão e carrinho), até com o modal de login aberto.
 
 ## Cenários dos mocks
 
