@@ -32,8 +32,17 @@ const NOTICE_KEY = "kurio.mockpanel.notice";
 const DRAG_THRESHOLD = 4;
 const EDGE = 4;
 
-/** O que fazer depois de uma ação que mexe no banco: recarregar a página ou abrir outra tela. */
-type Next = "reload" | { goto: string };
+/**
+ * Cenários que não simulam falha. Em qualquer outro o app mostra erros de propósito (sem saber que são
+ * simulados: "Sem conexão com o servidor…"), então o botão ganha cor de aviso e o atalho de volta ao default.
+ */
+const NEUTRAL_SCENARIOS: readonly ScenarioId[] = ["default", "figma"];
+
+/**
+ * O que fazer depois de uma ação que mexe no banco: recarregar a página (reabrindo o painel com a confirmação,
+ * ou deixando-o fechado) ou abrir outra tela.
+ */
+type Next = "reload" | "reload-closed" | { goto: string };
 
 /**
  * A confirmação atravessa o reload (sessionStorage) para o painel reabrir mostrando o que foi aplicado.
@@ -110,12 +119,13 @@ function clampToViewport(point: Point, drag: Drag): Point {
  * Posição do botão e do diálogo. Sem arrasto o botão fica no canto inferior esquerdo; arrastado,
  * `min()` em CSS mantém uma parte dele visível se a janela encolher. O diálogo abre para o lado
  * com mais espaço (acima na metade de baixo da tela) e é empurrado para dentro da tela à direita.
+ * O atalho "Restaurar default" fica ao lado do botão, à esquerda dele quando o botão está na metade direita.
  */
-function layoutFor(position: Point | null, viewportHeight: number) {
+function layoutFor(position: Point | null, viewportHeight: number, viewportWidth: number) {
   if (!position) {
     const container: CSSProperties = { left: 12, bottom: 12 };
     const dialog: CSSProperties = { maxHeight: "min(80dvh, calc(100dvh - 4.5rem))" };
-    return { container, dialog, above: true };
+    return { container, dialog, above: true, shortcutLeft: false };
   }
   const left = `min(${position.x}px, calc(100vw - 3rem))`;
   const top = `min(${position.y}px, calc(100dvh - 2.5rem))`;
@@ -124,7 +134,7 @@ function layoutFor(position: Point | null, viewportHeight: number) {
     maxHeight: above ? `min(80dvh, calc(${top} - 1.25rem))` : `min(80dvh, calc(100dvh - ${top} - 3.5rem))`,
     transform: `translateX(min(0px, calc(100vw - 1rem - ${left} - 100%)))`,
   };
-  return { container: { left, top } satisfies CSSProperties, dialog, above };
+  return { container: { left, top } satisfies CSSProperties, dialog, above, shortcutLeft: position.x > viewportWidth / 2 };
 }
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
@@ -154,8 +164,11 @@ function Panel({ control, resumed }: { control: KurioControl; resumed: string | 
   const drag = useRef<Drag | null>(null);
   const swallowClick = useRef(false);
   const viewportHeight = useSyncExternalStore(subscribeViewport, clientHeight);
+  const viewportWidth = useSyncExternalStore(subscribeViewport, clientWidth);
   const titleId = useId();
-  const layout = layoutFor(position, viewportHeight);
+  const layout = layoutFor(position, viewportHeight, viewportWidth);
+  const current = control.scenario.current();
+  const simulatesFaults = !NEUTRAL_SCENARIOS.includes(current);
 
   const onPointerDown = (event: ReactPointerEvent<HTMLButtonElement>) => {
     if (event.button !== 0) return;
@@ -224,6 +237,8 @@ function Panel({ control, resumed }: { control: KurioControl; resumed: string | 
       if (next === "reload") {
         leaveNotice(done);
         window.location.reload();
+      } else if (next === "reload-closed") {
+        window.location.reload();
       } else if (next) {
         window.location.assign(next.goto);
       }
@@ -243,12 +258,14 @@ function Panel({ control, resumed }: { control: KurioControl; resumed: string | 
   };
 
   return (
-    <div style={{ position: "fixed", zIndex: 2147483000, ...layout.container }} className="font-sans">
+    // `pointerEvents: auto`: com um modal do app aberto (login, cadastro) o Radix põe `pointer-events: none`
+    // no body; sem isto o botão e o atalho de volta ao default ficariam inclicáveis justo quando o erro aparece.
+    <div style={{ position: "fixed", zIndex: 2147483000, pointerEvents: "auto", ...layout.container }} className="font-sans">
       <button
         type="button"
         aria-expanded={open}
-        aria-label={`Mock · ${control.scenario.current()} — abrir painel de cenários`}
-        title="Arraste para mover"
+        aria-label={`Mock · ${current} — abrir painel de cenários`}
+        title={simulatesFaults ? `Cenário de teste ativo: ${current}. Os erros na tela são simulados. Arraste para mover.` : "Arraste para mover"}
         onClick={() => {
           if (!swallowClick.current) setOpen((value) => !value);
         }}
@@ -257,10 +274,25 @@ function Panel({ control, resumed }: { control: KurioControl; resumed: string | 
         onPointerUp={onPointerEnd}
         onPointerCancel={onPointerEnd}
         style={{ touchAction: "none" }}
-        className="cursor-grab select-none rounded-full border border-border bg-card px-3 py-2 text-xs font-bold text-accent-foreground shadow-lg hover:border-primary active:cursor-grabbing"
+        className={`cursor-grab select-none rounded-full border px-3 py-2 text-xs font-bold shadow-lg hover:border-primary active:cursor-grabbing ${
+          simulatesFaults ? "border-warning bg-warning-surface text-warning" : "border-border bg-card text-accent-foreground"
+        }`}
       >
-        Mock · {control.scenario.current()}
+        Mock · {current}
       </button>
+
+      {simulatesFaults && (
+        <button
+          type="button"
+          title={`Sai de "${current}" e volta ao cenário default, mantendo sessão, carrinho e pedidos`}
+          onClick={() => run("Voltou ao cenário default (dados mantidos)", () => control.scenario.set("default", { keepData: true }), "reload-closed")}
+          className={`absolute top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-warning bg-warning-surface px-3 py-2 text-xs font-bold text-warning hover:border-primary ${
+            layout.shortcutLeft ? "right-full mr-1" : "left-full ml-1"
+          }`}
+        >
+          Restaurar default
+        </button>
+      )}
 
       {open && (
         <div
