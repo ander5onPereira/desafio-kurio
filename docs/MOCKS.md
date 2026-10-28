@@ -22,8 +22,8 @@ A fronteira é garantida por `npm run check-mocks` e por uma regra do ESLint (`n
 | Como | Exemplo |
 | --- | --- |
 | Variável de ambiente (build) | `VITE_ENABLE_MOCKS=true`, `VITE_MOCK_SCENARIO=default` (`.env.development` e `.env.demo`) |
-| URL | `/?scenario=figma` (`&reset=1` força reset) |
-| Painel flutuante | botão **"Mock · <cenário>"** no canto inferior esquerdo (só com mocks ligados) |
+| URL | `/?scenario=figma` (`&reset=1` força reset). `scenario` e `reset` valem **uma vez**: saem da URL no boot (os demais parâmetros ficam), então o F5 mantém o estado e a troca feita pelo painel não é desfeita |
+| Painel flutuante | botão **"Mock · <cenário>"** no canto inferior esquerdo (só com mocks ligados). Arrastável com mouse, toque ou caneta; a posição fica em `localStorage` (`kurio.mockpanel.v1`) e o botão "Posição original" do painel a restaura. Cada cenário mostra um **"Como ver"** (definido em `tryIt` de `scenarios/definitions.ts`); "Aplicar e resetar" recarrega a página e o painel reabre com a confirmação; "Aplicar e abrir a tela de teste" leva à tela onde o efeito aparece. Com um modal aberto (login, cadastro) o app deixa o resto da página inerte, inclusive o painel |
 | Console / testes | `await __kurio.scenario.set("order-timeout")` |
 
 Trocar de cenário **restaura o banco**; use `{ keepData: true }` para só mudar o comportamento. **Reset:** `await __kurio.reset()` (recarregue a página

@@ -56,6 +56,8 @@ Assinaturas resumidas em `docs/progress/B.md`.
 - **Foco devolvido em diálogos controlados:** o Radix só restaura o foco quando há `Dialog.Trigger`; `useRestoreFocus` faz isso para modais abertos por estado.
 - **Ações fora de escopo** (`AppComingSoon`): botão `aria-disabled` (continua focável), dica "Em breve", texto oculto "(em breve)"; ao ativar apenas anuncia "Esta área ainda não está disponível." — nunca aparenta sucesso. *Nos testes Playwright use `click({ force: true })`: o Playwright considera `aria-disabled` como "não habilitado".*
 - **Foco ao navegar:** só quando o CAMINHO muda (não em mudança de search/hash, para não roubar o foco ao filtrar o catálogo) e nunca na primeira carga.
+- **Abas (`AppTabsList`):** rolam só na horizontal. A linha-base é uma sombra interna da lista, não `border-b`, para o sublinhado de 2 px da aba ativa cobri-la sem vazar do contêiner: o vazamento criava 1 px de rolagem vertical (a barra com setas ▲▼ no Windows). Lista sem linha-base: `shadow-none`.
+- **Paginação com links do Router:** `renderPage` com `<Link>` exige `activeOptions={{ exact: true }}`. Por padrão o Router marca como ativo todo link cuja busca seja subconjunto da atual (a página 1, sem `page`, casaria sempre) e sobrescreve o `aria-current`. O destaque segue a página da URL, que muda na hora do clique, e não a dos dados.
 - **Botões de ícone** exigem `aria-label` (quem usa é responsável).
 - **Slider** opera em inteiros (ex.: centésimos de ETH) para nunca introduzir erro de ponto flutuante.
 

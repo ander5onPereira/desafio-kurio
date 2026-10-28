@@ -1,8 +1,9 @@
-import { expect, expectNoHorizontalOverflow, test, VIEWPORTS } from "../fixtures";
+import { expect, expectNoHorizontalOverflow, expectNoVerticalScrollInTablists, test, VIEWPORTS } from "../fixtures";
 
 /**
  * Responsividade (README §8): sem overflow horizontal em 390, 768 e 1440 nas telas públicas e,
- * logado, nas telas de conta. Roda no projeto "chromium-tablet" e redimensiona a janela.
+ * logado, nas telas de conta; as listas de abas não ganham barra de rolagem vertical.
+ * Roda no projeto "chromium-tablet" e redimensiona a janela.
  */
 const PUBLIC_ROUTES = ["/", "/nft/emerald-ape-042", "/carrinho"];
 // Login e cadastro abrem como diálogo (desktop) ou tela cheia (mobile): o conteúdo é o formulário.
@@ -21,6 +22,13 @@ for (const viewport of VIEWPORTS) {
         await kurio.open(route);
         await expect(page.getByRole("main")).toBeVisible();
         await expectNoHorizontalOverflow(page);
+      });
+    }
+
+    for (const route of ["/", "/nft/emerald-ape-042"]) {
+      test(`${route}: as abas não têm barra de rolagem vertical`, async ({ page, kurio }) => {
+        await kurio.open(route);
+        await expectNoVerticalScrollInTablists(page);
       });
     }
 

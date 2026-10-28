@@ -47,6 +47,7 @@ npx playwright show-report reports/playwright # relatório HTML
 | 11 | Teclado, foco de diálogos, validação de formulários (+ axe) | `a11y.spec.ts` |
 | 12 | Skeletons em carga lenta, falha e recuperação | `loading-errors.spec.ts` |
 | — | Overflow horizontal em 390/768/1440 e zoom | `responsive.spec.ts` |
+| — | Seleção e reset de cenários do mock (URL e painel "Mock · …") | `mock-control.spec.ts` |
 | — | Regressão visual | `e2e/visual/visual.spec.ts` |
 
 ## Regressão visual — baselines só de Linux

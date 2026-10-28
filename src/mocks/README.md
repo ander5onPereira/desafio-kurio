@@ -9,7 +9,7 @@ src/mocks/
 ├─ enable.ts            # boot: initServer → worker.start → window.__kurio → ScenarioPanel
 ├─ init.ts              # cenário inicial (?scenario=, estado persistido, env), reagenda pedidos pendentes
 ├─ control.ts           # window.__kurio (implementa KurioControl de src/contracts/control.ts)
-├─ ScenarioPanel.tsx    # painel flutuante (raiz React própria; só Tailwind + tokens)
+├─ ScenarioPanel.tsx    # painel flutuante e arrastável (raiz React própria; só Tailwind + tokens)
 ├─ config.ts            # TTLs, taxas de rede, códigos de indicação, chave do localStorage
 ├─ db/                  # types · store (memória + persistência + ids/tokens) · seed (reset)
 ├─ fixtures/            # catalog (96 NFTs) · content (hero, avaliações) · users · coupons
@@ -51,7 +51,7 @@ Golden Frequency #071 · Golden Signal #160. As contagens das facetas são calcu
 
 ## Cenários
 
-Seleção: `?scenario=<id>` na URL (`&reset=1` força reset), `VITE_MOCK_SCENARIO`, painel "Mock · …" ou
+Seleção: `?scenario=<id>` na URL (`&reset=1` força reset; os dois valem uma vez e saem da URL no boot), `VITE_MOCK_SCENARIO`, painel "Mock · …" ou
 `await __kurio.scenario.set("<id>")`. Trocar de cenário **restaura o banco** (use `{ keepData: true }` para
 só trocar o comportamento). Contadores "uma vez por reset" persistem em refresh.
 

@@ -20,6 +20,22 @@ export async function expectNoHorizontalOverflow(page: Page): Promise<void> {
     .toBeLessThanOrEqual(1);
 }
 
+/**
+ * Listas de abas rolam só na horizontal. Com 1 px de conteúdo a mais o Chromium desenha uma barra VERTICAL
+ * (com setas ▲▼, no Windows) na ponta da lista. O Playwright esconde as barras de rolagem, então a checagem
+ * é pela geometria: a altura rolável não pode passar da visível.
+ */
+export async function expectNoVerticalScrollInTablists(page: Page): Promise<void> {
+  const lists = page.getByRole("tablist");
+  await expect(lists.first()).toBeVisible();
+  await expect
+    .poll(
+      () => lists.evaluateAll((elements) => elements.filter((el) => el.scrollHeight > el.clientHeight).map((el) => el.getAttribute("aria-label") ?? "(sem nome)")),
+      { message: "as listas de abas não devem rolar na vertical" },
+    )
+    .toEqual([]);
+}
+
 interface A11yOptions {
   exclude?: string[];
   include?: string;

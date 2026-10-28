@@ -58,7 +58,7 @@ Também é possível criar uma conta nova em `/cadastro`.
 
 ## Cenários dos mocks
 
-Escolha pela URL (`/?scenario=slow`; acrescente `&reset=1` para restaurar o banco) ou pelo botão **“Mock · &lt;cenário&gt;”** no canto inferior esquerdo, que abre o painel de cenários, injeção de falhas, alteração de NFT e relógio. O estado do “servidor” fica no `localStorage` (`kurio.mockdb.v1`) e sobrevive ao refresh.
+Escolha pela URL (`/?scenario=slow`; acrescente `&reset=1` para restaurar o banco; `scenario` e `reset` valem uma vez e saem da URL, então o F5 mantém o estado) ou pelo botão **“Mock · &lt;cenário&gt;”** no canto inferior esquerdo (arraste-o para outro ponto da tela; a posição fica salva e “Posição original”, dentro do painel, a restaura), que abre o painel de cenários, injeção de falhas, alteração de NFT e relógio. Cada cenário traz um **“Como ver”** (o que fazer e o que aparece na tela) e **“Aplicar e abrir a tela de teste”** já leva à tela onde o efeito se manifesta; vários cenários (cupom, pagamento, cadastro…) só aparecem numa ação específica, não na página inicial. O estado do “servidor” fica no `localStorage` (`kurio.mockdb.v1`) e sobrevive ao refresh.
 
 Cenários: `default` · `figma` (carrinho da Ana com os valores do layout) · `empty` · `slow` · `variable-latency` · `out-of-order` · `offline` · `server-errors` · `client-errors` · `session-expired` · `unauthorized` · `register-conflict` · `coupon-invalid` · `coupon-expired` · `price-changed-on-checkout` · `sold-out-on-checkout` · `order-timeout` · `payment-confirmed` · `payment-declined` · `wallet-rejected` · `socket-drop`.
 

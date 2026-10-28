@@ -99,6 +99,47 @@ test("paginação e histórico: voltar/avançar restauram a página e os filtros
   await expect.poll(() => cardNames(page)).toEqual(secondPage);
 });
 
+test("paginação destaca só a página atual ao avançar, voltar e pelo histórico", async ({ page, kurio }) => {
+  await kurio.open("/");
+  const pagination = page.getByRole("navigation", { name: "Paginação" });
+  const current = pagination.locator('[aria-current="page"]');
+  const expectCurrent = async (label: string) => {
+    await expect(current).toHaveCount(1);
+    await expect(current).toHaveAttribute("aria-label", label);
+  };
+
+  await expectCurrent("Página 1");
+  await pagination.getByRole("link", { name: "Página 2", exact: true }).click();
+  await expectCurrent("Página 2");
+  await pagination.getByRole("link", { name: "Próxima página" }).click();
+  await expectCurrent("Página 3");
+  await pagination.getByRole("link", { name: "Página anterior" }).click();
+  await expectCurrent("Página 2");
+  await pagination.getByRole("link", { name: "Página 1", exact: true }).click();
+  await expectCurrent("Página 1");
+
+  await page.goBack();
+  await expectCurrent("Página 2");
+});
+
+test("ao trocar de página o destaque vai para ela na hora, com a lista anterior ainda na tela", async ({ page, kurio }) => {
+  await kurio.open("/", "slow");
+  await expect(catalog(page).getByRole("listitem")).toHaveCount(9, { timeout: 15_000 });
+  const pagination = page.getByRole("navigation", { name: "Paginação" });
+  const current = pagination.locator('[aria-current="page"]');
+
+  await pagination.getByRole("link", { name: "Página 2", exact: true }).click();
+
+  // `slow` = 2,5 s por requisição: a lista ainda é a da página 1 (dados anteriores mantidos), mas a 2 já está marcada.
+  await expect(current).toHaveCount(1);
+  await expect(current).toHaveAttribute("aria-label", "Página 2");
+  expect(await cardNames(page)).toEqual(FIRST_PAGE);
+
+  await expect.poll(() => cardNames(page), { timeout: 15_000 }).not.toEqual(FIRST_PAGE);
+  await expect(current).toHaveCount(1);
+  await expect(current).toHaveAttribute("aria-label", "Página 2");
+});
+
 test("resultado vazio mostra mensagem e permite limpar a busca", async ({ page, kurio }) => {
   await kurio.open("/");
   await page.getByRole("search").getByLabel("Buscar NFTs").fill("zzzz-nao-existe");
