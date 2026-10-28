@@ -16,8 +16,11 @@ export interface AppPaginationProps {
   siblings?: number;
   /**
    * Para páginas como LINKS rastreáveis (SEO, abrir em nova aba), renderize um <Link> aqui:
-   * `renderPage={(p, children, props) => <Link to="/" search={...} {...props}>{children}</Link>}`.
+   * `renderPage={(p, children, props) => <Link to="/" search={...} activeOptions={{ exact: true }} {...props}>{children}</Link>}`.
    * Sem isso, cada página é um <button>.
+   * Com o <Link> do TanStack Router o `activeOptions={{ exact: true }}` é obrigatório: por padrão ele marca
+   * `aria-current="page"` em todo link cuja busca seja subconjunto da atual (a página 1, sem `page`, casa sempre)
+   * e sobrescreve o `aria-current` de `props`.
    */
   renderPage?: (page: number, children: ReactNode, props: PageLinkRenderProps) => ReactNode;
   className?: string;

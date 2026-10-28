@@ -60,13 +60,18 @@ export function CatalogResults({ query, search, onClear }: CatalogResultsProps) 
       )}
 
       <AppPagination
-        page={pagination.page}
+        // A página da URL, não a dos dados: com `keepPreviousData` os dados antigos ficam na tela até a nova chegar,
+        // e o destaque tem de ir para a página clicada na hora.
+        page={search.page ?? 1}
         totalPages={pagination.totalPages}
         onPageChange={() => undefined}
         renderPage={(page, children, props) => (
           <Link
             to="/"
             search={applyPatch(search, { page })}
+            // Sem `exact`, o Router marca como ativo todo link cuja busca é subconjunto da atual — a página 1 (sem
+            // `page`) casaria sempre — e sobrescreve o `aria-current` que o AppPagination já passa em `props`.
+            activeOptions={{ exact: true }}
             resetScroll={false}
             preload="intent"
             onClick={scrollToCatalog}

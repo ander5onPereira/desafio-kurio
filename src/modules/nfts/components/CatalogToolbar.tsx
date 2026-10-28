@@ -21,7 +21,7 @@ interface CatalogToolbarProps {
 export function CatalogToolbar({ search, onChange, showFiltersButton, showSort, onOpenFilters, activeFilters }: CatalogToolbarProps) {
   return (
     <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
-      <AppTabsList aria-label="Seções do catálogo" className="gap-5 border-b-0 md:gap-6">
+      <AppTabsList aria-label="Seções do catálogo" className="gap-5 shadow-none md:gap-6">
         {NFT_TABS.map((tab) => (
           <AppTabsTrigger key={tab} value={tab} className="py-2 text-xs md:text-sm">
             {NFT_TAB_LABELS[tab]}
