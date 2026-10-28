@@ -105,6 +105,16 @@ addEventListener('fetch', function (event) {
     return
   }
 
+  // [Kurio] PATCH LOCAL — refazer se `npx msw init public` regenerar este arquivo.
+  // O navegador encerra o worker ocioso (aba oculta, notebook suspenso) e, ao acordar, o
+  // `activeClientIds` volta vazio: as chamadas /api passariam direto e cairiam no fallback SPA
+  // (index.html com 200), quebrando o contrato até o usuário dar F5. Como este worker só existe
+  // para a demo com mocks, o cliente que fez a requisição é readotado como ativo. Só para /api/:
+  // readotar em scripts/CSS do boot travava o carregamento da página nova no reload.
+  if (activeClientIds.size === 0 && event.clientId && new URL(event.request.url).pathname.indexOf('/api/') === 0) {
+    activeClientIds.add(event.clientId)
+  }
+
   // Bypass all requests when there are no active clients.
   // Prevents the self-unregistered worked from handling requests
   // after it's been terminated (still remains active until the next reload).
