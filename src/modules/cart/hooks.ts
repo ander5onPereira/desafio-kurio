@@ -12,7 +12,6 @@ import { ensureGuestCartId } from "./guestCart";
 /** Mutations do carrinho com o mesmo escopo rodam EM SÉRIE (sem respostas fora de ordem). */
 const CART_MUTATION_SCOPE = { id: "cart-mutations" } as const;
 
-/** Escopo (userId | "guest") do carrinho atual. */
 export function useCartScope() {
   const { user } = useAuth();
   return scopeOf(user?.id);
@@ -36,12 +35,10 @@ export function useCart() {
   });
 }
 
-/** Soma das quantidades (badge do Header/BottomNav). */
 export function useCartCount(): number {
   return useCart().data?.totalQuantity ?? 0;
 }
 
-/** Mensagem curta para o usuário a partir do erro de uma operação de carrinho. */
 function cartErrorMessage(error: ApiError, fallback: string): string {
   if (error.code === "AVAILABILITY_CONFLICT") return "Quantidade acima da disponibilidade desta edição.";
   if (error.code === "NOT_FOUND") return "Este NFT não está mais disponível.";
@@ -114,7 +111,6 @@ export function useUpdateCartItem() {
   });
 }
 
-/** Remove um item (otimista, com rollback). */
 export function useRemoveCartItem() {
   const queryClient = useQueryClient();
   const scope = useCartScope();

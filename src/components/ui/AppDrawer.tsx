@@ -27,7 +27,6 @@ export interface AppDrawerProps extends VariantProps<typeof drawerVariants> {
   title: ReactNode;
   description?: ReactNode;
   children: ReactNode;
-  /** Rodapé fixo (ex.: botão "Aplicar filtros"). */
   footer?: ReactNode;
   className?: string;
 }

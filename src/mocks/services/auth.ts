@@ -8,7 +8,6 @@ import { disconnectToken } from "../realtime/broadcaster";
 import { flags } from "../scenarios/runtime";
 import { ServerError, sessionExpired, unauthenticated } from "./errors";
 
-/** Sessão: tokens opacos (access curto + refresh com rotação). Senhas só como PBKDF2 + sal. */
 export interface AuthContext {
   user: DbUser;
   session: DbSession;

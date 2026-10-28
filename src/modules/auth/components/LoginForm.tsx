@@ -10,11 +10,9 @@ import { applyApiErrorToForm } from "./formErrors";
 
 interface LoginFormProps {
   onSuccess: () => void;
-  /** Recebe o primeiro campo (foco inicial do diálogo). */
   firstFieldRef?: Ref<HTMLInputElement>;
 }
 
-/** Formulário "Entrar": e-mail + senha, validação com Zod e erros da API associados aos campos. */
 export function LoginForm({ onSuccess, firstFieldRef }: LoginFormProps) {
   const { login } = useAuth();
   const [formError, setFormError] = useState<string | null>(null);

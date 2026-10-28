@@ -72,7 +72,6 @@ function ItemName({ item }: { item: CartItem }) {
   );
 }
 
-/** Desktop/tablet: tabela semântica (NFTs · Preço · Edições · Total · remover), como no Figma. */
 export function CartTable({ items }: { items: readonly CartItem[] }) {
   return (
     <table className="w-full border-separate border-spacing-y-3 text-sm">
@@ -130,7 +129,6 @@ export function CartTable({ items }: { items: readonly CartItem[] }) {
   );
 }
 
-/** Mobile: cards empilhados (miniatura, nome, edição, preço, stepper e lixeira). */
 export function CartList({ items }: { items: readonly CartItem[] }) {
   return (
     <ul aria-label="Itens do carrinho" className="flex flex-col gap-3">

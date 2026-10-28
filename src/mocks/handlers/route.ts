@@ -27,11 +27,8 @@ export interface RouteContext<P extends string, B, Q> {
   body: B;
   query: Q;
   user: DbUser | null;
-  /** Usuário autenticado (as rotas `required` já garantem; lança 401 se faltar). */
   requireUser(): DbUser;
-  /** Valor do header X-Cart-Id (carrinho de visitante). */
   guestCartId: string | null;
-  /** access token usado na requisição (para o logout). */
   accessToken: string | null;
   /** Cenário order-timeout: aplica a operação, mas a resposta nunca sai. */
   holdResponse(): void;
@@ -40,7 +37,6 @@ export interface RouteContext<P extends string, B, Q> {
 type Out<S> = S extends z.ZodType ? z.output<S> : undefined;
 
 export interface RouteOptions {
-  /** Converte a query string em objeto antes de validar (padrão: pares chave/valor; repetidos viram array). */
   parseQuery?: (searchParams: URLSearchParams) => unknown;
 }
 

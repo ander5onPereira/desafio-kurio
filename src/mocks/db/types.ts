@@ -7,9 +7,7 @@ export interface DbUser {
   username: string;
   displayName: string;
   email: string;
-  /** PBKDF2 (hex) — nunca a senha em claro. */
   passwordHash: string;
-  /** Sal (hex) do PBKDF2. */
   salt: string;
   avatarUrl: string | null;
   ensName: string | null;
@@ -21,13 +19,11 @@ export interface DbSession {
   accessToken: string;
   refreshToken: string;
   userId: string;
-  /** ms desde a época, no relógio do mock. */
   accessExpiresAt: number;
   refreshExpiresAt: number;
   createdAt: number;
 }
 
-/** Parte MUTÁVEL de uma edição (o resto do NFT é estático, vem das fixtures). */
 export interface DbEditionState {
   id: string;
   price: EthString;
@@ -87,14 +83,12 @@ export interface DbOrder {
   requestHash: string;
   /** Resultado decidido NA CRIAÇÃO (mudar o cenário depois não altera). */
   outcome: OrderOutcome;
-  /** ms no relógio do mock em que o pedido deixa de estar pendente. */
   settleAt: number;
   items: DbOrderItem[];
 }
 
 export interface DbMeta {
   scenario: ScenarioId;
-  /** Estado do PRNG (persistido: ids/tokens nunca colidem após refresh). */
   rngState: number;
   counters: Record<string, number>;
 }
@@ -105,7 +99,6 @@ export interface DbState {
   users: Record<string, DbUser>;
   sessions: Record<string, DbSession>;
   nftState: Record<string, DbNftState>;
-  /** userId → ids de NFT (mais recente primeiro). */
   favorites: Record<string, string[]>;
   carts: Record<string, DbCart>;
   wallets: Record<string, DbWallet>;

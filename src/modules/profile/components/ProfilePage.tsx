@@ -2,7 +2,6 @@ import { AppError, AppSkeleton, AppSkeletonGroup } from "@/components/ui";
 import { useProfile } from "../hooks";
 import { ProfileForm } from "./ProfileForm";
 
-/** Skeleton com as mesmas dimensões do formulário real (sem deslocamento de layout). */
 function ProfileSkeleton() {
   return (
     <AppSkeletonGroup label="Carregando perfil" className="flex flex-col gap-8">
@@ -32,7 +31,6 @@ function ProfileSkeleton() {
   );
 }
 
-/** Perfil do colecionador (`/perfil`): dados, avatar e alteração de senha. */
 export function ProfilePage() {
   const profile = useProfile();
 

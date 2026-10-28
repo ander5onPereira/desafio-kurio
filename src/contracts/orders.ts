@@ -17,7 +17,6 @@ export const isTerminalOrderStatus = (s: OrderStatus) => s === "confirmed" || s 
 export const IDEMPOTENCY_HEADER = "Idempotency-Key";
 export const IDEMPOTENT_REPLAY_HEADER = "Idempotent-Replayed";
 
-/** Dados do colecionador (formulário "Perfil do colecionador" do pagamento). */
 export const collectorSchema = z.object({
   displayName: z.string().trim().min(2, "Informe o nome de exibição").max(40),
   username: z.string().trim().min(3, "Informe o nome de usuário").max(24),
@@ -25,7 +24,6 @@ export const collectorSchema = z.object({
   email: z.email("E-mail inválido"),
   ensName: z.string().trim().min(3, "Informe o nome ENS").max(60),
   referralCode: z.string().trim().min(4, "Informe o código de indicação").max(24),
-  /** "Observação do colecionador (opcional)". */
   note: z.string().trim().max(280, "Máximo de 280 caracteres").optional(),
 });
 export type Collector = z.infer<typeof collectorSchema>;

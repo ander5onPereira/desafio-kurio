@@ -11,7 +11,6 @@ import {
 import { PROVIDER_MONOGRAM, shortAddress } from "../format";
 import type { useWalletConnection } from "../useWalletConnection";
 
-/** Carteiras cadastradas (Perfil > Carteiras): cards selecionáveis com rede e endereço/ENS. */
 export function WalletPicker({
   wallets,
   selectedId,
@@ -52,7 +51,6 @@ export function WalletPicker({
   );
 }
 
-/** Provedor da carteira (MetaMask, WalletConnect, Coinbase Wallet) — radio cards como no Figma. */
 export function ProviderPicker({
   provider,
   onSelect,
@@ -76,7 +74,6 @@ export function ProviderPicker({
 
 type Connection = ReturnType<typeof useWalletConnection>;
 
-/** Conexão SIMULADA: conectar, recusa (com nova tentativa) e desconectar. Mensagens em `role="status"`. */
 export function ConnectionBox({ connection, networkLabel }: { connection: Connection; networkLabel: string | null }) {
   const { status } = connection;
   return (

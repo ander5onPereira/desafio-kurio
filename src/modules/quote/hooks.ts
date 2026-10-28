@@ -49,7 +49,6 @@ export function useQuote() {
   return query;
 }
 
-/** Aplica um cupom: só vira "o cupom atual" se a API aceitar (senão a cotação anterior é mantida). */
 export function useApplyCoupon() {
   const queryClient = useQueryClient();
   const scope = useCartScope();
@@ -64,7 +63,6 @@ export function useApplyCoupon() {
   });
 }
 
-/** Remove o cupom e recalcula (a mudança de assinatura dispara a nova cotação). */
 export function useRemoveCoupon() {
   return () => {
     quoteSettings.clearCoupon();

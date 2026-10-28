@@ -11,9 +11,7 @@ export type LatencyPolicy =
   | { kind: "seeded"; min: number; max: number };
 
 export interface ScenarioFlags {
-  /** GET /nfts devolve lista vazia (e facetas zeradas). */
   emptyCatalog?: boolean;
-  /** Toda requisição de API falha por conexão. */
   offline?: boolean;
   /** Falhas 503/500 nas N primeiras chamadas de cada rota (GET) e M das demais (exceto /auth). */
   serverErrors?: { reads: number; writes: number };
@@ -21,13 +19,9 @@ export interface ScenarioFlags {
   clientErrors?: boolean;
   /** Recursos privados: 401 (leitura) / 403 (escrita). */
   unauthorized?: boolean;
-  /** Access token com validade curta (ms). */
   accessTtlMs?: number;
-  /** /auth/refresh sempre responde 401 SESSION_EXPIRED. */
   refreshAlwaysFails?: boolean;
-  /** POST /auth/register sempre responde 409 EMAIL_TAKEN. */
   registerConflict?: boolean;
-  /** Qualquer cupom informado é recusado. */
   couponMode?: "invalid" | "expired";
   /** Resultado decidido na criação do pedido. */
   orderOutcome?: "confirmed" | "declined";
@@ -37,7 +31,6 @@ export interface ScenarioFlags {
   soldOutOnCheckout?: boolean;
   /** A 1ª criação de pedido é aplicada, mas a resposta nunca chega. */
   orderTimeoutOnce?: boolean;
-  /** POST /wallets/connect é sempre recusado. */
   walletRejected?: boolean;
   /** Ao criar um pedido o websocket cai; o pedido resolve com o cliente desconectado. */
   socketDropOnOrder?: boolean;

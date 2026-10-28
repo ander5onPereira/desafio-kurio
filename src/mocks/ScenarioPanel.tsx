@@ -237,7 +237,6 @@ function Panel({ control }: { control: KurioControl }) {
   );
 }
 
-/** Monta o painel numa raiz própria (fora da árvore do app). */
 export function mountScenarioPanel(control: KurioControl): void {
   if (document.getElementById("kurio-mock-panel")) return;
   const container = document.createElement("div");

@@ -5,7 +5,6 @@ import { hashPassword, verifyPassword } from "../lib/password";
 import { toUserDto } from "./auth";
 import { ServerError, validation } from "./errors";
 
-/** Perfil do colecionador: dados, avatar e senha. */
 export const getProfile = (user: DbUser): Profile => toUserDto(user);
 
 export function updateProfile(user: DbUser, body: UpdateProfileBody): Profile {

@@ -5,7 +5,6 @@ import { FieldSelect } from "./FieldSelect";
 
 export interface EnsNameFieldProps {
   label?: string;
-  /** Nome ENS completo (como no contrato): "nova.kurio.eth". */
   value: string;
   onChange: (fullName: string) => void;
   error?: string;

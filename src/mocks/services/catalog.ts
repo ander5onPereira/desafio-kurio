@@ -61,7 +61,6 @@ function sortRows(list: Row[], sort: NftListQuery["sort"]): Row[] {
     case "name":
       return sorted.sort((a, b) => a.summary.name.localeCompare(b.summary.name));
     default:
-      // Mais recentes primeiro (a fixture já nasce nessa ordem; o desempate é o id).
       return sorted.sort((a, b) => (a.summary.createdAt < b.summary.createdAt ? 1 : a.summary.createdAt > b.summary.createdAt ? -1 : a.summary.id.localeCompare(b.summary.id)));
   }
 }
@@ -122,7 +121,6 @@ export function getNftDetail(nftId: string): NftDetail {
   return toDetail(requireCatalogNft(nftId));
 }
 
-/** "Mais desta coleção": para os NFTs do Figma, a mesma seleção do layout; senão, os vizinhos. */
 export function relatedNfts(nftId: string): NftSummary[] {
   const base = requireCatalogNft(nftId);
   const pool = [

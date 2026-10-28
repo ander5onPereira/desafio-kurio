@@ -8,7 +8,6 @@ import { expect, test } from "../fixtures";
  */
 test.skip(({ isMobile }) => isMobile, "Filtros laterais são do layout desktop; o mobile usa drawer.");
 
-/** Primeira página do Figma (ordem "Listados recentemente"). */
 const FIRST_PAGE = [
   "Emerald Ape #042",
   "Sage Nomad #009",

@@ -3,18 +3,15 @@ import type { Artwork } from "@/contracts";
 import { cn } from "@/lib/utils";
 
 export interface AppArtworkProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "srcSet" | "alt" | "width" | "height"> {
-  /** `{ key, alt }` vindo da API (chave da arte + texto alternativo). */
   artwork: Artwork;
   /**
    * `thumb` → arquivo de 128 px (miniaturas, carrinho, recibo);
    * `full` → 128w + 250w com srcset (cards, hero, detalhe). Arte-fonte tem 250 px: não há upscale.
    */
   variant?: "thumb" | "full";
-  /** Atributo `sizes` do <img> no modo `full` (padrão: o tamanho nativo). */
   sizes?: string;
   /** Imagem do LCP (hero/detalhe): carrega já, com prioridade alta. As demais são lazy. */
   priority?: boolean;
-  /** Imagem puramente decorativa (alt vazio). */
   decorative?: boolean;
 }
 

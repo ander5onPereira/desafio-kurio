@@ -2,7 +2,6 @@ import { endpoints } from "@/contracts";
 import { addItem, mergeGuestCart, removeItem, resolveCart, toCartDto, updateItem } from "../services/cart";
 import { created, ok, route } from "./route";
 
-/** Carrinho de visitante (X-Cart-Id) e de usuário (token). */
 export const cartHandlers = (base: string) => [
   route(base, endpoints.cart.get, ({ user, guestCartId }) => ok(toCartDto(resolveCart({ user, guestCartId })))),
   route(base, endpoints.cart.addItem, ({ user, guestCartId, body }) =>

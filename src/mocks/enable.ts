@@ -19,6 +19,5 @@ export async function enableMocks(): Promise<void> {
   const control = createControl();
   window.__kurio = control;
 
-  // O painel é opcional: carregado depois, sem atrasar o boot do app.
   void import("./ScenarioPanel").then(({ mountScenarioPanel }) => mountScenarioPanel(control));
 }

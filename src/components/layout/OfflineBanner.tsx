@@ -1,7 +1,6 @@
 import { WifiOff } from "lucide-react";
 import { useOnline } from "@/hooks/useOnline";
 
-/** Faixa fixa no topo quando o navegador perde a conexão (estado "Offline" do DoD). */
 export function OfflineBanner() {
   const online = useOnline();
   if (online) return null;

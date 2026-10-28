@@ -8,7 +8,6 @@ export function stableStringify(value: unknown): string {
   return `{${entries.map(([k, v]) => `${JSON.stringify(k)}:${stableStringify(v)}`).join(",")}}`;
 }
 
-/** Hash não criptográfico (cyrb53) em hexadecimal — suficiente para `revision` e requestHash. */
 export function hashString(input: string, seed = 0): string {
   let h1 = 0xdeadbeef ^ seed;
   let h2 = 0x41c6ce57 ^ seed;

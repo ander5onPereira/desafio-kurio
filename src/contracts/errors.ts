@@ -37,18 +37,14 @@ export const CLIENT_ERROR_CODES = ["NETWORK_ERROR", "TIMEOUT", "INVALID_RESPONSE
 export const API_ERROR_CODES = [...SERVER_ERROR_CODES, ...CLIENT_ERROR_CODES] as const;
 export type ApiErrorCode = (typeof API_ERROR_CODES)[number];
 
-/** Corpo de toda resposta de erro da API. */
 export const apiErrorBodySchema = z.object({
   code: z.enum(SERVER_ERROR_CODES),
   message: z.string(),
-  /** Erros por campo: { email: ["E-mail já cadastrado"] }. Os nomes são os do corpo da requisição. */
   fieldErrors: z.record(z.string(), z.array(z.string())).optional(),
-  /** Dados extras tipados por código (ex.: QUOTE_CHANGED carrega a nova cotação). */
   meta: z.record(z.string(), z.unknown()).optional(),
 });
 export type ApiErrorBody = z.infer<typeof apiErrorBodySchema>;
 
-/** Códigos que indicam falha transitória (vale tentar de novo). */
 export const RETRYABLE_CODES: readonly ApiErrorCode[] = [
   "TRANSIENT",
   "INTERNAL",

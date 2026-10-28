@@ -8,17 +8,14 @@ export type CheckoutForm = UseFormReturn<CheckoutFormInput, unknown, CheckoutFor
 
 interface CollectorFieldsProps {
   form: CheckoutForm;
-  /** Desktop mostra também os campos derivados da carteira (rede, endereço, tipo, ENS secundário). */
   showWalletFields: boolean;
   wallet: Wallet | null;
   provider: WalletProvider | null;
-  /** "Usar outra carteira?" (só desktop, quando há mais de uma carteira). */
   canSwitchWallet: boolean;
   switchWalletOpen: boolean;
   onSwitchWalletChange: (open: boolean) => void;
 }
 
-/** Campos do "Perfil do colecionador" (Figma). Obrigatórios marcados com * (AppFormField `required`). */
 export function CollectorFields({
   form,
   showWalletFields,

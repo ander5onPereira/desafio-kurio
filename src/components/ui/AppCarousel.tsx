@@ -10,7 +10,6 @@ export interface AppCarouselProps {
   label: string;
   slideClassName?: string;
   options?: EmblaOptionsType;
-  /** Mostra os pontos de navegação (padrão: sim). */
   showDots?: boolean;
   className?: string;
 }

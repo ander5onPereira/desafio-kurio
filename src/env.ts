@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-/** Variáveis de ambiente tipadas. Falha cedo (no boot) se algo estiver inválido. */
 const envSchema = z.object({
   VITE_ENABLE_MOCKS: z
     .enum(["true", "false"])

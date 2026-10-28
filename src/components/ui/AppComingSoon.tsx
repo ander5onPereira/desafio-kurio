@@ -6,9 +6,7 @@ import { AppTooltip } from "./AppTooltip";
 
 export interface AppComingSoonProps {
   children: ReactNode;
-  /** Mostra o selo visível "Em breve" ao lado do texto. */
   badge?: boolean;
-  /** Texto da dica ao focar/passar o mouse. */
   tooltip?: string;
   className?: string;
 }

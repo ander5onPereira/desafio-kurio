@@ -68,7 +68,6 @@ export function AvatarField({ profile }: { profile: Profile }) {
         <AppButton variant="ghost" size="md" disabled={busy || !profile.avatarUrl} isLoading={removeAvatar.isPending} onClick={handleRemove}>
           Remover
         </AppButton>
-        {/* Campo de arquivo real, fora do fluxo de Tab (o botão "Alterar" é o controle visível). */}
         <input
           ref={inputRef}
           type="file"

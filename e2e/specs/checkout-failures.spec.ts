@@ -32,7 +32,6 @@ test("pagamento recusado mostra o resultado e preserva o carrinho", async ({ pag
 
   const orders = await listOrders(kurio);
   expect(orders.map((order) => order.status)).toEqual(["declined"]);
-  // Falha: os itens continuam no carrinho.
   expect((await cartItems(kurio)).map((item) => item.nftId)).toContain("emerald-ape-042");
 });
 
@@ -69,7 +68,7 @@ test("preço mudou durante a compra: exige nova confirmação e só então cria 
   await reviewAndSubmit(page);
 
   await expect(page.getByRole("button", { name: "Aceitar novos valores" })).toBeVisible();
-  expect(await listOrders(kurio)).toHaveLength(0); // nada foi criado com a cotação velha
+  expect(await listOrders(kurio)).toHaveLength(0);
   await expect(page.getByText("Seus NFTs agora estão na sua carteira")).toHaveCount(0);
 
   await page.getByRole("button", { name: "Aceitar novos valores" }).click();

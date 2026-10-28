@@ -7,7 +7,6 @@ import { emitToAll, emitToUser } from "./broadcaster";
  */
 interface LoggedEvent {
   event: SocketEvent;
-  /** userId do destinatário; null = todos. */
   audience: string | null;
 }
 
@@ -26,7 +25,6 @@ export const clearEventLog = (): void => {
   log = [];
 };
 
-/** Reenvia um evento já emitido, IDÊNTICO (mesmo id) — simula duplicata. */
 export function replay(eventId: string): void {
   const found = log.find((entry) => entry.event.id === eventId);
   if (!found) throw new Error(`Evento ${eventId} não encontrado no log`);

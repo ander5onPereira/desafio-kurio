@@ -1,7 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, type Page } from "@playwright/test";
 
-/** Larguras avaliadas no desafio (README §8). */
 export const VIEWPORTS = [
   { name: "mobile", width: 390, height: 844 },
   { name: "tablet", width: 768, height: 1024 },
@@ -22,9 +21,7 @@ export async function expectNoHorizontalOverflow(page: Page): Promise<void> {
 }
 
 interface A11yOptions {
-  /** Seletor CSS a ignorar (ex.: widgets de terceiros). */
   exclude?: string[];
-  /** Restringe a análise a um trecho da página (ex.: "main"). */
   include?: string;
 }
 

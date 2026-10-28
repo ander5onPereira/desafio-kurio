@@ -31,7 +31,6 @@ export const catalogSearchSchema = z.object({
 
 export type CatalogSearch = z.infer<typeof catalogSearchSchema>;
 
-/** Remove campos vazios/padrão para manter a URL limpa (sort=recent, tab=all e page=1 são os padrões). */
 export function normalizeSearch(search: CatalogSearch): CatalogSearch {
   const next: CatalogSearch = {};
   if (search.q) next.q = search.q;
@@ -47,7 +46,6 @@ export function normalizeSearch(search: CatalogSearch): CatalogSearch {
 
 export const CATALOG_PAGE_SIZE = 9;
 
-/** Converte o estado da URL nos parâmetros enviados à API (e na chave de cache). */
 export function toApiQuery(search: CatalogSearch): NftListQuery {
   const query: NftListQuery = { pageSize: CATALOG_PAGE_SIZE };
   if (search.q) query.q = search.q;
@@ -70,7 +68,6 @@ export function applyPatch(current: CatalogSearch, patch: Partial<CatalogSearch>
   return normalizeSearch({ ...current, ...patch, page: changesPagination ? patch.page : undefined });
 }
 
-/** Há algum filtro ativo (busca, coleção, rede, preço)? Define se "Limpar filtros" aparece. */
 export function hasActiveFilters(search: CatalogSearch): boolean {
   return Boolean(search.q || search.collection?.length || search.network?.length || search.minPrice || search.maxPrice);
 }

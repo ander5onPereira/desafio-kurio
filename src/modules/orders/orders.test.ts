@@ -28,7 +28,6 @@ const order = (overrides: Partial<Order> = {}): Order => ({
   ...overrides,
 });
 
-/** Storage em memória com a mesma interface mínima do sessionStorage. */
 function memoryStorage() {
   const data = new Map<string, string>();
   return {
@@ -89,7 +88,6 @@ describe("cache de pedidos", () => {
     mergeOrderIntoCache(queryClient, "u1", order({ version: 2, status: "confirmed" }));
     mergeOrderIntoCache(queryClient, "u1", order({ version: 1, status: "pending" }));
     expect(queryClient.getQueryData<Order>(keys.order("u1", "o1"))?.status).toBe("confirmed");
-    // Outro usuário não enxerga o pedido (chave com escopo).
     expect(queryClient.getQueryData(keys.order("u2", "o1"))).toBeUndefined();
   });
 

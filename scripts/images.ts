@@ -13,7 +13,6 @@ import sharp from "sharp";
 const SOURCE_DIR = path.resolve("src/assets/artworks");
 const OUTPUT_DIR = path.resolve("public/img");
 
-/** Mapeamento arquivo → chave de arte (ver ARTWORK_KEYS em src/contracts/common.ts). */
 const ARTWORKS = {
   golden: "NFT-Artwork-01.png",
   emerald: "NFT-Artwork-02.png",

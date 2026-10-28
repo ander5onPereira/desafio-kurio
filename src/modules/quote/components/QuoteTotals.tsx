@@ -5,14 +5,11 @@ import { cn } from "@/lib/utils";
 
 interface QuoteTotalsProps {
   quote: Quote | undefined;
-  /** Primeira carga (sem cotação ainda): mostra o skeleton com a MESMA altura do conteúdo. */
   isLoading?: boolean;
-  /** Recalculando em segundo plano (mantém os valores atuais na tela). */
   isRefreshing?: boolean;
   className?: string;
 }
 
-/** Altura fixa = a das 4 linhas reais (evita deslocamento de layout quando a cotação chega). */
 export function QuoteTotalsSkeleton({ className }: { className?: string }) {
   return (
     <AppSkeletonGroup label="Calculando valores" className={cn("flex min-h-40 flex-col gap-3", className)}>

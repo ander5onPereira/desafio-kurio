@@ -5,9 +5,7 @@ import { cn } from "@/lib/utils";
 export interface AppEmptyProps {
   title: string;
   description?: ReactNode;
-  /** Ícone Lucide (decorativo). Padrão: caixa aberta. */
   icon?: ReactNode;
-  /** Ação principal (ex.: botão "Limpar filtros"). */
   action?: ReactNode;
   className?: string;
 }

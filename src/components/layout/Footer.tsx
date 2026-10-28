@@ -66,10 +66,6 @@ function Newsletter() {
   );
 }
 
-/**
- * Footer (desktop, ≥ md) — três faixas como no Figma: benefícios + newsletter, faixa marrom com
- * contato e links. Links fora de escopo usam AppComingSoon (desabilitados, "em breve").
- */
 export function Footer() {
   return (
     <footer className="mt-24 hidden md:block">

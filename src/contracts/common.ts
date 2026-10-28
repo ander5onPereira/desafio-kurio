@@ -12,7 +12,6 @@ export type EthString = z.infer<typeof ethString>;
 export const idSchema = z.string().min(1);
 export const isoDate = z.iso.datetime();
 
-/** Redes suportadas (filtro "Rede" do catálogo e seleção no pagamento). */
 export const NETWORK_IDS = ["ethereum", "polygon", "solana"] as const;
 export const networkId = z.enum(NETWORK_IDS);
 export type NetworkId = z.infer<typeof networkId>;
@@ -22,7 +21,6 @@ export const NETWORK_LABELS: Record<NetworkId, string> = {
   solana: "Solana",
 };
 
-/** Provedores de carteira simulados (nenhuma extensão real é usada). */
 export const WALLET_PROVIDERS = ["metamask", "walletconnect", "coinbase"] as const;
 export const walletProvider = z.enum(WALLET_PROVIDERS);
 export type WalletProvider = z.infer<typeof walletProvider>;
@@ -50,9 +48,7 @@ export const paginationSchema = z.object({
 });
 export type Pagination = z.infer<typeof paginationSchema>;
 
-/** Status de linha usado no carrinho e na cotação. */
 export const lineStatus = z.enum(["ok", "price-changed", "limited", "unavailable"]);
 export type LineStatus = z.infer<typeof lineStatus>;
 
-/** Resposta sem corpo (204). */
 export const noContent = z.unknown();

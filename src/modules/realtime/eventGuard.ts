@@ -31,18 +31,15 @@ export class EventGuard {
     return "apply";
   }
 
-  /** Última versão aceita do recurso (ex.: "nft:abc"). */
   versionOf(key: string): number | undefined {
     return this.versions.get(key);
   }
 
-  /** Registra uma versão vinda do REST (a resposta REST também vale como "versão conhecida"). */
   noteVersion(key: string, version: number): void {
     const known = this.versions.get(key);
     if (known === undefined || version > known) this.versions.set(key, version);
   }
 
-  /** Esquece tudo (troca de usuário/sessão). */
   reset(): void {
     this.seenIds.clear();
     this.versions.clear();

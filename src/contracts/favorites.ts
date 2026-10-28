@@ -2,7 +2,6 @@ import { z } from "zod";
 import { idSchema } from "./common";
 import { nftSummarySchema } from "./nfts";
 
-/** Favoritos do usuário autenticado ("Lista de interesse"). */
 export const favoritesResponseSchema = z.object({ items: z.array(nftSummarySchema) });
 export type FavoritesResponse = z.infer<typeof favoritesResponseSchema>;
 

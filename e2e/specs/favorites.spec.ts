@@ -26,7 +26,6 @@ test("favorita, persiste após o refresh e é isolado por usuário", async ({ pa
   await page.reload();
   await expect(heart(page, "Sage Nomad #009")).toHaveAttribute("aria-pressed", "true");
 
-  // Outra conta nova não vê esse favorito.
   await logout();
   const other = await createAccount();
   await loginAs(other, { redirect: "/" });
@@ -43,11 +42,9 @@ test("falha na mutation desfaz a alteração otimista e avisa; depois recupera",
 
   const button = heart(page, "Emerald Ape #042");
   await button.click();
-  // Rollback: volta a "não favoritado" e o usuário é avisado (toast/região ao vivo).
   await expect(page.getByText(/não foi possível/i).first()).toBeVisible();
   await expect(button).toHaveAttribute("aria-pressed", "false");
 
-  // Nova tentativa funciona (a falha foi consumida) e o estado final vem do servidor.
   await kurio.afterResponse("PUT", "/favorites", () => button.click());
   await expect(button).toHaveAttribute("aria-pressed", "true");
   await page.reload();

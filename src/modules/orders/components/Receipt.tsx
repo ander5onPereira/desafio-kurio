@@ -5,7 +5,6 @@ import { AppButton, AppModal } from "@/components/ui";
 import { AppArtwork, AppEthAmount } from "@/components/shared";
 import { NETWORK_LABELS, WALLET_PROVIDER_LABELS, type Order } from "@/contracts";
 
-/** "29 Jul, 2026" (formato do Figma). */
 export function formatReceiptDate(iso: string): string {
   const parts = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric" }).formatToParts(new Date(iso));
   const get = (type: Intl.DateTimeFormatPartTypes) => parts.find((part) => part.type === type)?.value ?? "";
@@ -13,7 +12,6 @@ export function formatReceiptDate(iso: string): string {
   return `${get("day")} ${month.charAt(0).toUpperCase()}${month.slice(1)}, ${get("year")}`;
 }
 
-/** 0xA91F…E82C */
 function abbreviateHash(hash: string): string {
   return hash.length > 14 ? `${hash.slice(0, 6)}…${hash.slice(-4)}` : hash;
 }

@@ -4,7 +4,6 @@ import { getDb, mutate } from "../db/store";
 import { notFound } from "./errors";
 import { toSummary } from "./views";
 
-/** Favoritos isolados por usuário (`db.favorites[userId]`), mais recente primeiro. */
 export function listFavorites(userId: string): FavoritesResponse {
   const ids = getDb().favorites[userId] ?? [];
   const items = ids.flatMap((id) => {

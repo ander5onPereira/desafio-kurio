@@ -10,7 +10,6 @@ import { CartChangeNotice } from "./CartChangeNotice";
 import { CartList, CartTable } from "./CartItems";
 import { CartSummary } from "./CartSummary";
 
-/** Skeleton com as dimensões das linhas e do resumo (sem deslocamento de layout ao carregar). */
 function CartSkeleton() {
   return (
     <AppSkeletonGroup label="Carregando carrinho" className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20.75rem] lg:gap-x-16">
@@ -29,7 +28,6 @@ function CartSkeleton() {
   );
 }
 
-/** Página do carrinho (visitante ou usuário). Desktop: tabela + resumo; mobile: cards + resumo. */
 export function CartPage() {
   const isDesktop = useIsDesktop();
   const cart = useCart();

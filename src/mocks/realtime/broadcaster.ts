@@ -29,7 +29,6 @@ const clients = new Set<ClientEntry>();
 let blocked = false;
 let nextClientId = 1;
 
-/** Usuário dono de um access token válido (ou null). */
 function userIdFromToken(token: string | null): string | null {
   if (!token || !isDbReady()) return null;
   const session = getDb().sessions[token];
@@ -89,24 +88,20 @@ export function handleConnection(connection: WebSocketHandlerConnection): void {
   });
 }
 
-/** Envia a todos os sockets conectados (eventos públicos). */
 export function emitToAll(event: SocketEvent): void {
   for (const client of clients) client.emit(event);
 }
 
-/** Envia só aos sockets do usuário (eventos privados). */
 export function emitToUser(userId: string, event: SocketEvent): void {
   for (const client of clients) if (client.userId === userId) client.emit(event);
 }
 
-/** Fecha os sockets de um token (logout): evita receber eventos de uma sessão encerrada. */
 export function disconnectToken(token: string): void {
   for (const client of [...clients]) {
     if (client.token === token) client.connection.client.close(1000, "logout");
   }
 }
 
-/** Derruba todas as conexões e recusa novas até `restoreConnections()`. */
 export function dropConnections(): void {
   blocked = true;
   for (const client of [...clients]) client.connection.client.close(1012, "drop");

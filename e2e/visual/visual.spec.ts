@@ -32,7 +32,6 @@ async function settle(page: Page) {
   );
 }
 
-/** Elementos do ambiente de mocks que não fazem parte da interface do produto. */
 const mockChrome = (page: Page) => [page.getByRole("button", { name: /abrir painel de cenários/ })];
 
 test.beforeEach(async ({ page }) => {
@@ -56,7 +55,7 @@ test("Detalhe do NFT", async ({ page, kurio }) => {
 test("Carrinho", async ({ page, loginAs }) => {
   await loginAs("ana", { redirect: "/carrinho", scenario: "figma" });
   await expect(page.getByText("Emerald Ape #042").first()).toBeVisible();
-  await expect(page.getByText("26.846").first()).toBeVisible(); // total do Figma, vindo da cotação
+  await expect(page.getByText("26.846").first()).toBeVisible();
   await settle(page);
   await expect(page).toHaveScreenshot("carrinho.png", { fullPage: true, mask: mockChrome(page) });
 });

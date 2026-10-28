@@ -39,7 +39,6 @@ function PaymentSkeleton() {
   );
 }
 
-/** Pedido pendente: impede nova compra e leva ao pedido (recuperação após refresh/reconexão). */
 function PendingOrderNotice({ orderId }: { orderId: string }) {
   return (
     <div role="status" className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-sm border border-warning/40 bg-warning-surface px-4 py-3 text-sm text-warning">
@@ -53,7 +52,6 @@ function PendingOrderNotice({ orderId }: { orderId: string }) {
   );
 }
 
-/** Pagamento: desktop em 2 colunas (como o Figma); mobile em etapas (Dados → Carteira e rede → Revisão). */
 export function PaymentPage() {
   const checkout = useCheckout();
   const isDesktop = useIsDesktop();
@@ -114,7 +112,6 @@ export function PaymentPage() {
       </div>
     );
 
-    // ---------- Mobile (etapas) ----------
     if (!isDesktop) {
       if (inReview) return <ReviewPanel checkout={checkout} headingLevel={2} />;
       return (
@@ -170,7 +167,6 @@ export function PaymentPage() {
       );
     }
 
-    // ---------- Desktop (2 colunas) ----------
     return (
       <>
         {checkout.pendingOrder && <PendingOrderNotice orderId={checkout.pendingOrder.id} />}

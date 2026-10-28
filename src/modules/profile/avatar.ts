@@ -1,4 +1,3 @@
-/** Tipos aceitos pelo contrato (updateAvatarBodySchema) e limites de entrada/saída. */
 export const AVATAR_ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/webp"] as const;
 export const AVATAR_MAX_INPUT_BYTES = 5 * 1024 * 1024; // arquivo escolhido (antes de reduzir)
 export const AVATAR_MAX_SIDE = 256; // px do lado maior após reduzir
@@ -10,7 +9,6 @@ export class AvatarError extends Error {
   }
 }
 
-/** Valida o arquivo escolhido (tipo e tamanho). Lança AvatarError com mensagem para o usuário. */
 export function validateAvatarFile(file: Pick<File, "type" | "size">): void {
   if (!AVATAR_ACCEPTED_TYPES.includes(file.type as (typeof AVATAR_ACCEPTED_TYPES)[number])) {
     throw new AvatarError("Formato não suportado. Use PNG, JPG ou WebP.");
@@ -20,7 +18,6 @@ export function validateAvatarFile(file: Pick<File, "type" | "size">): void {
   }
 }
 
-/** Calcula o tamanho final mantendo a proporção, sem ampliar. */
 export function fitWithin(width: number, height: number, maxSide: number): { width: number; height: number } {
   const scale = Math.min(1, maxSide / Math.max(width, height));
   return { width: Math.max(1, Math.round(width * scale)), height: Math.max(1, Math.round(height * scale)) };

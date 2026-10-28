@@ -29,7 +29,6 @@
     color: var(--primary-foreground);
   }
 
-  /* Foco visível em TODO elemento interativo (acessibilidade). */
   :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
@@ -45,7 +44,6 @@
     height: auto;
   }
 
-  /* Respeita a preferência por movimento reduzido (shimmer, transições, scroll). */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

@@ -5,7 +5,6 @@ import { keys, scopeOf } from "@/lib/queryKeys";
 import { useAuth } from "@/modules/auth";
 import { walletsApi } from "./api";
 
-/** Escopo de cache do usuário atual (isolamento por usuário). */
 function useWalletsScope() {
   const { user } = useAuth();
   return { userId: user?.id ?? null, scope: scopeOf(user?.id) };
@@ -26,7 +25,6 @@ export function useWallets() {
   });
 }
 
-/** Aplica a carteira devolvida pela API no cache (sem esperar um refetch). */
 function upsertWallet(current: WalletsResponse | undefined, wallet: Wallet): WalletsResponse {
   const items = current?.items ?? [];
   const exists = items.some((item) => item.id === wallet.id);

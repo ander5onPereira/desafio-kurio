@@ -14,7 +14,6 @@ const actions = {
   logout: () => authStore.logout(),
 };
 
-/** Estado da sessão + ações. O snapshot só muda quando status/usuário mudam. */
 export function useAuth(): AuthApi {
   const snapshot = useSyncExternalStore(authStore.subscribe, authStore.getSnapshot, authStore.getSnapshot);
   return useMemo(() => ({ ...snapshot, ...actions }), [snapshot]);

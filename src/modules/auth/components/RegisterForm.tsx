@@ -13,10 +13,6 @@ interface RegisterFormProps {
   firstFieldRef?: Ref<HTMLInputElement>;
 }
 
-/**
- * Formulário "Criar conta": usuário, e-mail, senha e confirmação. Conflitos da API
- * (EMAIL_TAKEN / USERNAME_TAKEN) aparecem no campo correspondente.
- */
 export function RegisterForm({ onSuccess, firstFieldRef }: RegisterFormProps) {
   const { register: registerAccount } = useAuth();
   const [formError, setFormError] = useState<string | null>(null);

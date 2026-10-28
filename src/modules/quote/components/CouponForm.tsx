@@ -4,10 +4,6 @@ import { AppButton, AppFormField, AppInput } from "@/components/ui";
 import { useApplyCoupon, useRemoveCoupon } from "../hooks";
 import { quoteSettings, useQuoteSettings } from "../settings";
 
-/**
- * Cupom promocional (carrinho e pagamento). Só vira "cupom atual" se a API aceitar; erro (inválido/
- * expirado) aparece sob o campo e a cotação anterior continua na tela. Remover recalcula o resumo.
- */
 export function CouponForm({ className }: { className?: string }) {
   const settings = useQuoteSettings();
   const apply = useApplyCoupon();

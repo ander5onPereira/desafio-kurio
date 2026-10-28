@@ -17,7 +17,6 @@ test("mudança de preço no carrinho: avisa, atualiza o resumo e a linha", async
 
   await kurio.updateNft(NFT, { price: "1.49", editionId: EDITION });
 
-  // Aviso acessível (role=status) com o antes/depois e o resumo recalculado.
   const notice = page.getByRole("status").filter({ hasText: "Seu carrinho foi atualizado" });
   await expect(notice).toBeVisible();
   await expect(notice).toContainText("1.19");
@@ -29,7 +28,6 @@ test("esgotar a edição durante o carrinho avisa que o item não está mais dis
   await loginAs("ana", { redirect: "/" });
   await buyFromDetail(page, NFT, isMobile);
 
-  // Esgota a edição enquanto ela está no carrinho: o item deixa de estar disponível.
   await kurio.updateNft(NFT, { available: 0, editionId: EDITION });
   const notice = page.getByRole("status").filter({ hasText: "Seu carrinho foi atualizado" });
   await expect(notice).toBeVisible();
@@ -43,7 +41,6 @@ test("checkout bloqueia a confirmação com cotação desatualizada e exige nova
   await connectWallet(page, isMobile);
   await expect(page.getByText("Carteira conectada")).toBeVisible();
 
-  // O preço muda no servidor enquanto o usuário está no pagamento.
   await kurio.updateNft(NFT, { price: "1.59", editionId: EDITION });
   await expect(page.getByText("1.59").first()).toBeVisible();
 

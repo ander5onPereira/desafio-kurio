@@ -19,12 +19,6 @@ function scrollToCatalog() {
   requestAnimationFrame(() => document.getElementById("catalogo")?.scrollIntoView({ behavior: "auto", block: "start" }));
 }
 
-/**
- * Resultados do catálogo com TODOS os estados:
- *  - carregando (1ª vez): skeleton com 9 cards de dimensões fixas;
- *  - atualizando em segundo plano (filtro/página nova): mantém a página anterior esmaecida (`aria-busy`);
- *  - vazio: mensagem + "Limpar filtros"; erro: mensagem + "Tentar novamente".
- */
 export function CatalogResults({ query, search, onClear }: CatalogResultsProps) {
   const { data, isPending, isError, error, refetch, isFetching, isPlaceholderData } = query;
 
@@ -44,7 +38,6 @@ export function CatalogResults({ query, search, onClear }: CatalogResultsProps) 
         <AppError compact error={error} title="Não foi possível atualizar os resultados" onRetry={() => void refetch()} isRetrying={isFetching} />
       )}
 
-      {/* Região ao vivo: quem usa leitor de tela ouve o resultado de cada busca/filtro. */}
       <p role="status" className="sr-only">
         {pagination.total === 0 ? "Nenhum NFT encontrado." : `${pagination.total} ${pagination.total === 1 ? "NFT encontrado" : "NFTs encontrados"}. Página ${pagination.page} de ${pagination.totalPages}.`}
       </p>

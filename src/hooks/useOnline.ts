@@ -9,7 +9,6 @@ const subscribe = (onChange: () => void) => {
   };
 };
 
-/** Estado de conectividade do navegador (para o banner "Você está offline"). */
 export function useOnline(): boolean {
   return useSyncExternalStore(
     subscribe,

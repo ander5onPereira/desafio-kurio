@@ -41,7 +41,6 @@ import { AppEthAmount } from "./AppEthAmount";
 import { AppQuantityStepper } from "./AppQuantityStepper";
 import { announce } from "./AppLiveRegion";
 
-/** Seção da vitrine: título + conteúdo. */
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section aria-labelledby={`ds-${title}`} className="flex flex-col gap-4 border-t border-border pt-8">

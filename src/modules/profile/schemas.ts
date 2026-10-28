@@ -34,7 +34,6 @@ export const profileFormSchema = updateProfileBodySchema
 
 export type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
-/** Campos que a API pode devolver em `fieldErrors` (nomes iguais aos do corpo da requisição). */
 export const PROFILE_FIELD_NAMES = [
   "displayName",
   "username",

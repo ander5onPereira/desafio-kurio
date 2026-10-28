@@ -4,7 +4,6 @@ import { NETWORK_LABELS } from "@/contracts";
 import { AppEmpty, AppError, AppSkeleton, AppSkeletonGroup, AppTabs, AppTabsContent, AppTabsList, AppTabsTrigger } from "@/components/ui";
 import { useNftReviews } from "../hooks";
 
-/** Estrelas decorativas + texto para leitores de tela ("Nota 4,8 de 5"). */
 export function Stars({ rating, className }: { rating: number; className?: string }) {
   const filled = Math.round(rating);
   return (

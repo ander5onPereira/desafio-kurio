@@ -3,8 +3,6 @@ import { newUuid } from "../db/store";
 import { clock } from "../lib/clock";
 import { requireCatalogNft, nftStateOf } from "../services/views";
 
-/** Construtores de envelope (contrato em src/contracts/events.ts). */
-
 export function makeNftEvent(nftId: string, overrides: { version?: number } = {}): NftUpdatedEvent {
   const catalog = requireCatalogNft(nftId);
   const state = nftStateOf(nftId);

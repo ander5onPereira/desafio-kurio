@@ -3,7 +3,6 @@ import { Slider } from "radix-ui";
 import { cn } from "@/lib/utils";
 
 export interface AppSliderProps {
-  /** Faixa [mínimo, máximo] selecionada. */
   value: [number, number];
   onValueChange: (value: [number, number]) => void;
   /** Disparado ao soltar o polegar (ideal para consultar a API só no fim do arrasto). */
@@ -11,7 +10,6 @@ export interface AppSliderProps {
   min: number;
   max: number;
   step?: number;
-  /** Rótulos acessíveis dos polegares. */
   minLabel?: string;
   maxLabel?: string;
   disabled?: boolean;

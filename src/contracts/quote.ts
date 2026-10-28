@@ -35,18 +35,15 @@ export const quoteSchema = z.object({
   id: idSchema,
   revision: z.string(),
   createdAt: isoDate,
-  /** Depois disso a cotação é considerada vencida (precisa recalcular). */
   expiresAt: isoDate,
   lines: z.array(quoteLineSchema),
   subtotal: ethString,
   discount: z.object({
-    /** Ex.: "Desconto do lançamento". */
     label: z.string(),
     amount: ethString,
     couponCode: z.string().nullable(),
   }),
   networkFee: ethString,
-  /** true → exibir "Taxa estimada" (como no Figma). */
   feeEstimated: z.boolean(),
   total: ethString,
   network: networkId,
@@ -61,5 +58,3 @@ export const quoteRequestBodySchema = z.object({
   network: networkId.optional(),
 });
 export type QuoteRequestBody = z.infer<typeof quoteRequestBodySchema>;
-
-/** `meta` de COUPON_INVALID / COUPON_EXPIRED não é necessário: a mensagem basta. */

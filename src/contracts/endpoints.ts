@@ -315,5 +315,4 @@ export const endpoints = {
   },
 } as const;
 
-/** Lista plana (útil para o registro de handlers e para a documentação). */
 export const allEndpoints = Object.values(endpoints).flatMap((group) => Object.values(group));

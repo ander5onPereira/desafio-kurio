@@ -32,7 +32,6 @@ test("a quantidade respeita o limite de disponibilidade da edição", async ({ p
   const increase = page.getByRole("button", { name: /^Aumentar quantidade/ });
   await increase.click();
   await expect(page.getByRole("group", { name: /^Quantidade de/ })).toContainText("2");
-  // No limite: o botão de aumentar fica desabilitado (e a tela explica o "máx.").
   await expect(increase).toBeDisabled();
 });
 

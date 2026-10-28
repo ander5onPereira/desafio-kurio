@@ -25,7 +25,6 @@ import { NftCard, NftCardSkeleton } from "./NftCard";
 import { NftGallery } from "./NftGallery";
 import { PurchasePanel, maxPurchasable } from "./PurchasePanel";
 
-/** NFT inexistente (id inválido na URL). */
 export function NftNotFound() {
   return (
     <Container className="py-16">
@@ -203,7 +202,6 @@ function NftDetailContent({ nft }: { nft: NftDetail }) {
 
   return (
     <>
-      {/* Mobile: voltar e favoritar sobre a imagem (Figma). */}
       {!isMdUp && (
         <div className="flex items-center justify-between px-4 pb-3 pt-4">
           <button
@@ -245,7 +243,6 @@ function NftDetailContent({ nft }: { nft: NftDetail }) {
   );
 }
 
-/** Página de detalhe: carrega o NFT e trata inexistente, erro (com retry) e sucesso. */
 export function NftDetailPage({ nftId }: { nftId: string }) {
   const { data, isPending, isError, error, refetch, isFetching } = useNftDetail(nftId);
 

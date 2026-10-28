@@ -23,7 +23,6 @@ function ratio(a: string, b: string): number {
   return (light + 0.05) / (dark + 0.05);
 }
 
-/** [texto, fundo, mínimo]. 4.5 = texto normal; 3 = componente/texto grande. */
 const PAIRS: Array<[string, string, number]> = [
   ["foreground", "background", 4.5],
   ["foreground", "card", 4.5],

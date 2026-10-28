@@ -10,10 +10,6 @@ interface NftGalleryProps {
   name: string;
 }
 
-/**
- * Galeria: miniaturas (desktop) + imagem principal com lupa. Teclado: setas movem a seleção entre
- * as miniaturas; a lupa abre a imagem ampliada em um diálogo (foco preso, Esc fecha).
- */
 export function NftGallery({ images, name }: NftGalleryProps) {
   const [index, setIndex] = useState(0);
   const [zoomOpen, setZoomOpen] = useState(false);

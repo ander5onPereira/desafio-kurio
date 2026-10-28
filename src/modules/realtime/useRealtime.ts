@@ -8,7 +8,6 @@ import { reconcileNftData } from "./nftState";
 import type { ApplyEffects, CartItemChange } from "./applyEvent";
 import { realtime, type ConnectionStatus } from "./connection";
 
-/** Mensagem acessível para uma mudança em item do carrinho. */
 export function describeCartChange(change: CartItemChange): string {
   const parts: string[] = [];
   if (change.priceChanged) {
@@ -24,7 +23,6 @@ export function describeCartChange(change: CartItemChange): string {
   return parts.join(" ");
 }
 
-/** Efeitos de verdade: toast (Sonner é região `aria-live`) + anúncio; `id` do evento evita repetição. */
 const effects: ApplyEffects = {
   onCartItemChanged(change) {
     const message = describeCartChange(change);
@@ -71,7 +69,6 @@ export function useRealtime(): void {
   useEffect(() => realtime.acquire(), []);
 }
 
-/** Estado da conexão para o indicador discreto do layout. */
 export function useConnectionStatus(): ConnectionStatus {
   return useSyncExternalStore(realtime.subscribeStatus, realtime.getStatus, realtime.getStatus);
 }

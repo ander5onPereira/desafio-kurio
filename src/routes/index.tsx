@@ -7,8 +7,6 @@ import { nftListOptions } from "@/modules/nfts/hooks";
 import { catalogSearchSchema, toApiQuery } from "@/modules/nfts/searchParams";
 
 export const Route = createFileRoute("/")({
-  // A URL é a fonte da verdade do catálogo: busca, filtros, ordenação, aba e página.
-  // Valores inválidos são descartados pelo schema (nunca quebram a página).
   validateSearch: (search: Record<string, unknown>) => catalogSearchSchema.parse(search),
   loaderDeps: ({ search }) => ({ query: toApiQuery(search) }),
   // Aquece o cache sem bloquear a navegação: o componente mostra skeleton se ainda não chegou.

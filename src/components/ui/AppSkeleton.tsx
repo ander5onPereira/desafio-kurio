@@ -12,7 +12,6 @@ export function AppSkeleton({ className, ...props }: HTMLAttributes<HTMLDivEleme
 }
 
 interface AppSkeletonGroupProps {
-  /** Texto para leitores de tela (ex.: "Carregando catálogo"). */
   label?: string;
   className?: string;
   children: ReactNode;

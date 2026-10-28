@@ -12,7 +12,6 @@ const cardVariants = cva("rounded-md bg-card text-card-foreground", {
 });
 
 export interface AppCardProps extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants> {
-  /** Renderiza o filho como card (ex.: <article>, <section>, <li>) mantendo o visual. */
   asChild?: boolean;
 }
 

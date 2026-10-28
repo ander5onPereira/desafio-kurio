@@ -14,7 +14,6 @@ import { requireCatalogNft, nftStateOf } from "./views";
 export interface NftPatch {
   price?: EthString;
   available?: number;
-  /** Edição alvo (padrão: a edição padrão do NFT). */
   editionId?: string;
 }
 

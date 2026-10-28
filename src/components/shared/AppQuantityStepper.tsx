@@ -5,15 +5,12 @@ import { cn } from "@/lib/utils";
 export interface AppQuantityStepperProps {
   value: number;
   onChange: (next: number) => void;
-  /** Mínimo (padrão 1). Remover item é uma ação separada (botão de lixeira). */
   min?: number;
   /** Máximo (estoque/limite). Ao atingir, exibe "Máx. N" em texto (não só desabilitado). */
   max?: number;
-  /** Nome do item, usado nos rótulos acessíveis ("Aumentar quantidade de Emerald Ape #042"). */
   label: string;
   size?: "sm" | "md";
   disabled?: boolean;
-  /** Mostra o texto "Máx. N" ao atingir o limite (padrão: sim). */
   showLimit?: boolean;
   className?: string;
 }

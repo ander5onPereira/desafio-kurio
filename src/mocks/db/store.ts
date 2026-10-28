@@ -28,7 +28,6 @@ export function getDb(): DbState {
   return state;
 }
 
-/** Substitui o estado inteiro (usado pelo seed). */
 export function setDb(next: DbState): void {
   state = next;
   installPersistenceHooks();
@@ -58,7 +57,6 @@ export function installPersistenceHooks(
   }
 }
 
-/** Callbacks chamados quando o banco é reconstruído (limpa timers/contadores de outras camadas). */
 export function onDbReset(listener: () => void): () => void {
   resetListeners.add(listener);
   return () => resetListeners.delete(listener);
@@ -68,7 +66,6 @@ export function notifyReset(): void {
   for (const listener of resetListeners) listener();
 }
 
-/** Executa uma mutação e agenda a persistência. */
 export function mutate<T>(fn: (db: DbState) => T): T {
   const result = fn(getDb());
   schedulePersist();
@@ -94,7 +91,6 @@ export function persistNow(): void {
   }
 }
 
-/** Lê o estado persistido; ignora versões antigas ou dados corrompidos. */
 export function loadPersisted(): DbState | null {
   if (!hasStorage()) return null;
   try {
@@ -116,7 +112,6 @@ export function clearPersisted(): void {
   }
 }
 
-/** Escopo do PRNG persistido: gera ids/tokens sem colidir entre recargas. */
 export function withRng<T>(fn: (rng: ReturnType<typeof createRng>) => T): T {
   const db = getDb();
   const rng = createRng(DB_RNG_SEED);
@@ -126,7 +121,6 @@ export function withRng<T>(fn: (rng: ReturnType<typeof createRng>) => T): T {
   return result;
 }
 
-/** Contador nomeado persistido (ids legíveis: ord_0001). */
 export function nextSeq(name: string): number {
   const db = getDb();
   const value = (db.meta.counters[name] ?? 0) + 1;
@@ -138,7 +132,6 @@ export function newId(prefix: string): string {
   return `${prefix}_${String(nextSeq(prefix)).padStart(4, "0")}`;
 }
 
-/** Token opaco (não adivinhável pelo front, reproduzível pelo PRNG). */
 export function newToken(prefix: string): string {
   return `${prefix}_${withRng((rng) => rng.hex(32))}`;
 }

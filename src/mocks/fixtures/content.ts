@@ -3,7 +3,6 @@ import { createRng } from "../lib/prng";
 import { hashString } from "../lib/hash";
 import { CATALOG_BY_ID, FIGMA_IDS } from "./catalog";
 
-/** Slides do hero (3 pontos de paginação no Figma). */
 export function buildHeroSlides(): HeroSlide[] {
   const alt = (id: string) => {
     const nft = CATALOG_BY_ID.get(id);
@@ -56,7 +55,6 @@ const COMMENTS = [
   "Gostei do acabamento e da clareza dos metadados.",
 ];
 
-/** Avaliações determinísticas por NFT (até 10 itens; `count` é o total do contrato). */
 export function buildReviews(nftId: string, average: number, count: number): NftReviewsResponse {
   const rng = createRng(parseInt(hashString(nftId).slice(0, 8), 16));
   const total = Math.min(10, count);

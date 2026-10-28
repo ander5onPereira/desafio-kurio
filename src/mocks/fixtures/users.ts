@@ -9,12 +9,10 @@ export interface UserFixture {
   displayName: string;
   email: string;
   password: string;
-  /** Sal fixo (hex, 16 bytes) → hash reproduzível. */
   salt: string;
   ensName: string;
   walletNickname: string;
   createdAt: string;
-  /** Mais recente primeiro. */
   favorites: string[];
   wallets: Array<WalletInput & { id: string }>;
 }

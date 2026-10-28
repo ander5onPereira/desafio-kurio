@@ -2,7 +2,6 @@ import type { ApiErrorBody } from "@/contracts";
 
 type ServerCode = ApiErrorBody["code"];
 
-/** Erro de servidor com tudo que o contrato de erros pede (vira apiErrorBodySchema no handler). */
 export class ServerError extends Error {
   readonly status: number;
   readonly code: ServerCode;
@@ -40,7 +39,6 @@ export const sessionExpired = () => new ServerError(401, "SESSION_EXPIRED", "Sua
 export const validation = (fieldErrors: Record<string, string[]>, message = "Verifique os campos informados.") =>
   new ServerError(422, "VALIDATION_ERROR", message, { fieldErrors });
 
-/** Código padrão do contrato para um status HTTP (usado nas injeções de status). */
 export function defaultCodeForStatus(status: number): ServerCode {
   if (status === 401) return "UNAUTHENTICATED";
   if (status === 403) return "FORBIDDEN";

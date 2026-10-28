@@ -11,7 +11,6 @@ import { useQuickAdd } from "./useQuickAdd";
 
 interface NftCardProps {
   nft: NftSummary;
-  /** Primeiras imagens da página (acima da dobra) carregam já. */
   priority?: boolean;
   className?: string;
 }
@@ -43,10 +42,8 @@ export function NftCard({ nft, priority, className }: NftCardProps) {
         />
         {nft.rare && <AppBadge variant="rare" className="absolute left-0 top-4 rounded-l-none md:top-5">Raro</AppBadge>}
 
-        {/* Mobile: coração no canto. */}
         <FavoriteButton nft={nft} className="absolute right-5 top-5 z-10 bg-background/80 md:hidden" />
 
-        {/* Desktop: ações no hover/foco. */}
         <div className="absolute inset-x-0 bottom-7 z-10 hidden items-center justify-center gap-2 opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100 md:flex">
           <button
             type="button"
@@ -91,7 +88,6 @@ export function NftCard({ nft, priority, className }: NftCardProps) {
   );
 }
 
-/** Esqueleto com as MESMAS dimensões do NftCard (evita deslocamento de layout). */
 export function NftCardSkeleton() {
   return (
     <div aria-hidden="true" className="flex flex-col">

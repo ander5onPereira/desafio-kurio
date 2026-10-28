@@ -4,8 +4,6 @@ import { getDb } from "../db/store";
 import type { DbEditionState, DbNftState } from "../db/types";
 import { notFound } from "./errors";
 
-/** Converte o catálogo estático + estado mutável nos DTOs do contrato. */
-
 export function requireCatalogNft(nftId: string): CatalogNft {
   const nft = CATALOG_BY_ID.get(nftId);
   if (!nft) throw notFound("NFT");
