@@ -99,7 +99,7 @@ Requisito de projeto, não polimento: labels e `aria-describedby` nos erros de c
 - **Sessão em `localStorage`** (ver §3) e senhas fictícias em texto no mock: aceitável apenas para a demo.
 - **Performance mobile abaixo de 90** no Lighthouse (Início 84, Detalhe 88; eram 77 e 83): o servidor simulado (≈61 KB gzip depois de remover o cookie store do MSW) fica no caminho crítico do boot do build `demo`, e o Lighthouse não cobra os bytes servidos pelo service worker (ver o achado em [`docs/PERFORMANCE.md`](docs/PERFORMANCE.md)). Desktop: 98–99; Accessibility 97, Best Practices 100, SEO 100 em todos os casos.
 - **Regressão visual:** as baselines dependem do sistema operacional (renderização de fonte). As versionadas devem ser geradas no mesmo ambiente do CI/Linux; em outra máquina use `npm run e2e:update` e revise o diff.
-- **Teclado no mobile:** 12 testes são pulados de propósito nos projetos mobile (interações só de teclado).
+- **Testes pulados no mobile:** 14 são pulados de propósito nos projetos mobile: os 11 do catálogo (os filtros laterais são do layout desktop; no mobile viram um drawer) e 3 de teclado físico e de diálogo de login, que não se aplicam ao toque.
 - **Integrações reais** (blockchain, extensões de carteira, gateway de pagamento) estão fora do escopo; carteiras e pagamento são simulados.
 - **Notificações e e-mails** (confirmação de pedido, newsletter) não são enviados.
 
