@@ -15,13 +15,9 @@ const amountVariants = cva("tabular-nums", {
 });
 
 export interface AppEthAmountProps extends VariantProps<typeof amountVariants> {
-  /** Valor em ETH como string decimal (contrato). Nunca number. */
   value: string;
-  /** Preço antigo: aparece riscado em <del>, com texto para leitores de tela. */
   compareAt?: string | null;
-  /** Mostra o sufixo "ETH" (padrão: sim). */
   unit?: boolean;
-  /** Prefixo para descontos: "(-)" como no Figma. */
   prefix?: string;
   minFraction?: number;
   maxFraction?: number;

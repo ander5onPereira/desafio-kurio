@@ -3,7 +3,6 @@ import { AppError, AppSkeleton, AppSkeletonGroup } from "@/components/ui";
 import { AppArtwork, AppEthAmount } from "@/components/shared";
 import { useFeatured } from "../hooks";
 
-/** Card "NFT em destaque / Oferta limitada" da sidebar do Início. */
 export function SpotlightCard() {
   const { data, isPending, isError, error, refetch, isFetching } = useFeatured();
 

@@ -6,7 +6,6 @@ import { HomePage } from "@/modules/nfts/components/HomePage";
 export const Route = createFileRoute("/login")({
   validateSearch: (search: Record<string, unknown>): { redirect?: string } =>
     typeof search.redirect === "string" ? { redirect: search.redirect } : {},
-  // Já autenticado? Segue direto para o destino (sem reabrir o formulário).
   beforeLoad: async ({ search }) => {
     const snapshot = await authStore.ensureReady();
     if (snapshot.isAuthenticated) throw redirect({ href: safeRedirect(search.redirect) });
@@ -15,7 +14,6 @@ export const Route = createFileRoute("/login")({
   component: LoginPage,
 });
 
-/** Desktop: diálogo sobre a página Início (como no Figma). Mobile: o diálogo vira tela cheia. */
 function LoginPage() {
   const { redirect: redirectTo } = Route.useSearch();
   return (

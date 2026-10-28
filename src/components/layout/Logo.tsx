@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 
-/** Logotipo KURIO (texto, monoespaçado, espaçado) — link para o início. */
 export function Logo({ className }: { className?: string }) {
   return (
     <Link

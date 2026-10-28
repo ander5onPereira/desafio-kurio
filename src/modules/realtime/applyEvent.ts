@@ -16,7 +16,6 @@ import { keys, type Scope } from "@/lib/queryKeys";
 import { mergeOrderIntoCache } from "@/modules/orders";
 import { nftFloors, patchDetail, patchSummary } from "./nftState";
 
-/** Mudança relevante para um item que está NO CARRINHO (vira aviso na tela e no leitor de tela). */
 export interface CartItemChange {
   eventId: string;
   itemId: string;
@@ -39,7 +38,6 @@ export interface ApplyEffects {
 
 export interface ApplyContext {
   queryClient: QueryClient;
-  /** userId | "guest" — escopo dos caches privados. */
   scope: Scope;
   effects: ApplyEffects;
 }
@@ -82,15 +80,12 @@ function applyNftUpdated({ queryClient, scope, effects }: ApplyContext, event: N
     });
   }
 
-  // 1) Detalhe.
   queryClient.setQueryData<NftDetail>(keys.nfts.detail(nftId), (old) => (old ? patchDetail(old, floor) : old));
 
-  // 2) Listas do catálogo (qualquer combinação de filtros/páginas em cache).
   queryClient.setQueriesData<NftListResponse>({ queryKey: keys.nfts.lists() }, (old) =>
     old ? { ...old, items: old.items.map((item) => patchSummary(item, floor)) } : old,
   );
 
-  // 3) Destaque da home, "mais desta coleção"/"também viram" e favoritos.
   queryClient.setQueryData<FeaturedResponse>(keys.nfts.featured(), (old) =>
     old ? { ...old, spotlight: patchSummary(old.spotlight, floor) } : old,
   );

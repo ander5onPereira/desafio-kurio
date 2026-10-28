@@ -34,7 +34,6 @@ export function useOrder(orderId: string) {
   });
 }
 
-/** Pedidos pendentes do usuário (recuperar após refresh/reconexão sem criar outra compra). */
 export function usePendingOrders() {
   const { user, status } = useAuth();
   const scope = scopeOf(user?.id);

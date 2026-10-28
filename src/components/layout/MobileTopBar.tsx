@@ -4,7 +4,6 @@ import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface MobileTopBarProps {
-  /** Título centralizado (é o <h1> da página no mobile). */
   title: ReactNode;
   /** Voltar para uma rota específica. Sem isso nem `onBack`, volta no histórico. */
   backTo?: LinkProps["to"];

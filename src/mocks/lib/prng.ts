@@ -3,12 +3,9 @@
  * fixtures) vem daqui — nunca de Math.random — para que cenários sejam reproduzíveis.
  */
 export interface Rng {
-  /** Número em [0, 1). */
   next(): number;
-  /** Inteiro em [min, max] (inclusivo). */
   int(min: number, max: number): number;
   pick<T>(items: readonly T[]): T;
-  /** String hexadecimal de `length` caracteres. */
   hex(length: number): string;
   getState(): number;
   setState(state: number): void;
@@ -45,7 +42,6 @@ export function createRng(seed: number): Rng {
   };
 }
 
-/** UUID v4 válido (versão 4, variante 8–b) gerado a partir do PRNG. */
 export function uuidFrom(rng: Rng): string {
   const hex = rng.hex(32).split("");
   hex[12] = "4";

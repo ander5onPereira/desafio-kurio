@@ -12,7 +12,6 @@ import type { InjectRule, ScenarioId } from "../../src/contracts";
 export class KurioClient {
   constructor(private readonly page: Page) {}
 
-  /** Abre uma rota já com o cenário desejado (`?scenario=`) e espera o control plane subir. */
   async open(path = "/", scenario?: ScenarioId): Promise<void> {
     const url = new URL(path, "http://kurio.local");
     if (scenario) url.searchParams.set("scenario", scenario);
@@ -31,12 +30,10 @@ export class KurioClient {
     return result;
   }
 
-  /** Espera o MSW e o control plane estarem disponíveis. */
   async ready(): Promise<void> {
     await this.page.waitForFunction(() => Boolean(window.__kurio));
   }
 
-  /** Troca o cenário. Por padrão o servidor RESTAURA o banco (sessões, carrinhos…); `keepData` só muda o comportamento. */
   async setScenario(id: ScenarioId, options?: { keepData?: boolean }): Promise<void> {
     await this.page.evaluate(([scenario, opts]) => window.__kurio!.scenario.set(scenario, opts), [id, options] as const);
   }
@@ -45,12 +42,10 @@ export class KurioClient {
     return this.page.evaluate(() => window.__kurio!.scenario.current());
   }
 
-  /** Volta o banco do mock ao seed (do cenário informado ou do atual). */
   async reset(id?: ScenarioId): Promise<void> {
     await this.page.evaluate((scenario) => window.__kurio!.reset(scenario), id);
   }
 
-  /** Falha/atraso pontual ("as próximas N chamadas") sem trocar de cenário. */
   async inject(rule: InjectRule): Promise<void> {
     await this.page.evaluate((value) => window.__kurio!.inject(value), rule);
   }
@@ -93,7 +88,6 @@ export class KurioClient {
     ) as Promise<{ status: number; json: T }>;
   }
 
-  /** Altera preço/estoque NO SERVIDOR; o evento `nft.updated` chega pelo socket.io-client. */
   async updateNft(
     nftId: string,
     patch: { price?: string; available?: number; editionId?: string },
@@ -101,7 +95,6 @@ export class KurioClient {
     return this.page.evaluate(([id, change]) => window.__kurio!.nft.update(id, change), [nftId, patch] as const);
   }
 
-  /** Conclui um pedido pendente (emite `order.updated`). */
   async settleOrder(orderId: string, status: "confirmed" | "declined"): Promise<void> {
     await this.page.evaluate(([id, result]) => window.__kurio!.order.settle(id, result), [orderId, status] as const);
   }
@@ -114,12 +107,10 @@ export class KurioClient {
     await this.page.evaluate(() => window.__kurio!.socket.restore());
   }
 
-  /** Reenvia um evento já emitido (duplicata). */
   async replayEvent(eventId: string): Promise<void> {
     await this.page.evaluate((id) => window.__kurio!.socket.replay(id), eventId);
   }
 
-  /** Reenvia um evento com versão ANTIGA do mesmo NFT (evento obsoleto). */
   async emitStale(nftId: string): Promise<void> {
     await this.page.evaluate((id) => window.__kurio!.socket.emitStale(id), nftId);
   }

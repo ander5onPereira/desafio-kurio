@@ -32,11 +32,9 @@ export const checkoutDraftSchema = z.object({
   form: draftFormSchema,
   walletId: z.string().nullable(),
   provider: walletProvider.nullable(),
-  /** Cotação que o usuário revisou (a que será enviada). */
   reviewed: quoteSchema.nullable(),
   /** true = o POST /orders foi disparado e a resposta ainda não é conhecida (timeout/queda). */
   inFlight: z.boolean(),
-  /** Pedido já criado (resposta recebida). */
   orderId: z.string().nullable(),
 });
 export type CheckoutDraft = z.infer<typeof checkoutDraftSchema>;
@@ -85,7 +83,6 @@ export function clearDraft(storage: Pick<Storage, "removeItem">, userId: string)
   }
 }
 
-/** sessionStorage seguro (pode lançar em modo privado/bloqueado). */
 export function draftStorage(): Storage | null {
   try {
     return window.sessionStorage;

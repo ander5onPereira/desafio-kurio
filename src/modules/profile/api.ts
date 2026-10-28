@@ -1,7 +1,6 @@
 import { callEndpoint } from "@/lib/api";
 import { endpoints, type ChangePasswordBody, type UpdateProfileBody } from "@/contracts";
 
-/** Chamadas REST do perfil (via registro de contratos + Axios). */
 export const profileApi = {
   get: (signal?: AbortSignal) => callEndpoint(endpoints.profile.get, { signal }),
   update: (body: UpdateProfileBody) => callEndpoint(endpoints.profile.update, { body }),

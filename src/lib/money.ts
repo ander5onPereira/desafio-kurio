@@ -23,7 +23,6 @@ export function subEth(a: string, b: string): EthString {
   return canonical(toDecimal(a).minus(b));
 }
 
-/** Preço unitário × quantidade inteira. */
 export function mulEth(unit: string, quantity: number): EthString {
   if (!Number.isInteger(quantity)) throw new Error("Quantidade deve ser inteira");
   return canonical(toDecimal(unit).times(quantity));
@@ -33,7 +32,6 @@ export function sumEth(values: readonly string[]): EthString {
   return canonical(values.reduce((acc, value) => acc.plus(value), new Decimal(0)));
 }
 
-/** -1 | 0 | 1 */
 export function compareEth(a: string, b: string): -1 | 0 | 1 {
   return toDecimal(a).comparedTo(b) as -1 | 0 | 1;
 }
@@ -41,9 +39,7 @@ export function compareEth(a: string, b: string): -1 | 0 | 1 {
 export const isZeroEth = (value: string) => toDecimal(value).isZero();
 
 interface FormatOptions {
-  /** Mínimo de casas decimais (padrão 2: "1.19", "2.00"). */
   minFraction?: number;
-  /** Máximo de casas (padrão 18). Zeros à direita além do mínimo são cortados. */
   maxFraction?: number;
 }
 
@@ -61,5 +57,4 @@ export function formatEth(value: string, { minFraction = 2, maxFraction = 18 }: 
   return frac ? `${intPart}.${frac}` : intPart;
 }
 
-/** "1.19 ETH" */
 export const formatEthWithUnit = (value: string, options?: FormatOptions) => `${formatEth(value, options)} ETH`;

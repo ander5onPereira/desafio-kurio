@@ -11,7 +11,6 @@ const avatarVariants = cva("relative inline-flex shrink-0 select-none items-cent
 });
 
 export interface AppAvatarProps extends VariantProps<typeof avatarVariants> {
-  /** URL ou data URL da imagem. */
   src?: string | null;
   /** Nome da pessoa: vira texto alternativo e a inicial de reserva. Sem nome → ícone de imagem. */
   name?: string | null;

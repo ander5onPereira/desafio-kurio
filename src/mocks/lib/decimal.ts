@@ -8,17 +8,14 @@ import type { EthString } from "@/contracts";
 const canonical = (value: Decimal): EthString =>
   value.toFixed().replace(/(\.\d*?)0+$/, "$1").replace(/\.$/, "");
 
-/** `percent`% de `value`, com até 18 casas. Ex.: percentOf("26.83", 10) → "2.683". */
 export function percentOf(value: string, percent: number): EthString {
   return canonical(new Decimal(value).times(percent).div(100).toDecimalPlaces(18));
 }
 
-/** value × factor ÷ divisor, arredondado a `places` casas (preços de edição). */
 export function scaleEth(value: string, factor: number, divisor: number, places = 2): EthString {
   return canonical(new Decimal(value).times(factor).div(divisor).toDecimalPlaces(places));
 }
 
-/** Soma `delta` (string decimal, pode ser negativa) ao valor. */
 export function shiftEth(value: string, delta: string): EthString {
   return canonical(new Decimal(value).plus(delta));
 }

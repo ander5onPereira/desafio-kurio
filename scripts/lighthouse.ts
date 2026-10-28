@@ -145,7 +145,6 @@ async function main() {
         const scores = Object.fromEntries(categories.map((id) => [id, med((r) => r.scores[id])])) as Record<CategoryId, number>;
         const medians = { lcp: med((r) => r.lcp), cls: med((r) => r.cls), tbt: med((r) => r.tbt), fcp: med((r) => r.fcp) };
 
-        // Guarda HTML/JSON da execução mediana (por performance) como o relatório oficial.
         const ordered = [...results].sort((a, b) => a.scores.performance - b.scores.performance);
         const representative = ordered[Math.floor(ordered.length / 2)]!;
         const base = path.join(outputDir, `${page.id}-${profile}`);

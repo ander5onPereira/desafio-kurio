@@ -4,7 +4,6 @@ import { useLinkProps, type LinkProps } from "@tanstack/react-router";
 interface NavLinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
   to: LinkProps["to"];
   hash?: string;
-  /** Estado ativo decidido por NÓS (a regra de Início × Mercado não é a do casamento de rota). */
   active: boolean;
 }
 

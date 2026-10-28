@@ -8,7 +8,6 @@ import { sessionSchema, type Session } from "@/contracts";
  */
 export const SESSION_STORAGE_KEY = "kurio.session";
 
-/** Prefixos de chaves privadas por usuário (limpas no logout e na troca de usuário). */
 const PRIVATE_KEY_PREFIXES = ["kurio.checkoutDraft", "kurio.private."];
 
 export function readStoredSession(): Session | null {
@@ -38,7 +37,6 @@ export function clearStoredSession(): void {
   }
 }
 
-/** Remove dados privados do usuário anterior (rascunho de checkout etc.). NÃO apaga o carrinho do servidor. */
 export function clearPrivateStorage(): void {
   for (const storage of [safeStorage("local"), safeStorage("session")]) {
     if (!storage) continue;

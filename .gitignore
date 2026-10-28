@@ -19,8 +19,8 @@ e2e/.cache
 deploy_key*
 *.pem
 /Makefile
-/docs
 /design
 /Desktop
-/.env.demo
-/.env.development
+/.tanstack
+PLANO.md
+/docs/progress

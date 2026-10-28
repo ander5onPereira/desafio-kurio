@@ -13,12 +13,10 @@ function storage(): Storage | null {
   }
 }
 
-/** Devolve o id existente, sem criar. Usado pela ponte do Axios e pela mescla. */
 export function peekGuestCartId(): string | null {
   return storage()?.getItem(STORAGE_KEY) ?? null;
 }
 
-/** Devolve o id existente ou cria um novo (UUID). */
 export function ensureGuestCartId(): string {
   const existing = peekGuestCartId();
   if (existing) return existing;

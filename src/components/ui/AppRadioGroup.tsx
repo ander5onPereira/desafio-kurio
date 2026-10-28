@@ -11,7 +11,6 @@ export const AppRadioGroup = forwardRef<ComponentRef<typeof RadioGroup.Root>, Co
 );
 AppRadioGroup.displayName = "AppRadioGroup";
 
-/** Círculo do rádio (anel + ponto), reutilizado pelo card. */
 function RadioDot() {
   return (
     <span
@@ -25,11 +24,8 @@ function RadioDot() {
 
 export interface AppRadioCardProps extends Omit<ComponentPropsWithoutRef<typeof RadioGroup.Item>, "children" | "title"> {
   title: ReactNode;
-  /** Linhas secundárias (endereço, rede…). */
   description?: ReactNode;
-  /** Ícone/monograma à esquerda do texto (ex.: "M" da MetaMask). */
   icon?: ReactNode;
-  /** Conteúdo à direita (ex.: menu ⋮). */
   trailing?: ReactNode;
 }
 

@@ -5,15 +5,12 @@ import { cn } from "@/lib/utils";
 import { AppButton } from "./AppButton";
 
 export interface AppErrorProps {
-  /** Erro capturado (ApiError ou qualquer um) — define título/mensagem padrão. */
   error?: unknown;
   title?: string;
   message?: ReactNode;
-  /** Quando informado, exibe o botão "Tentar novamente". */
   onRetry?: () => void;
   retryLabel?: string;
   isRetrying?: boolean;
-  /** Versão compacta (cartões e seções pequenas). */
   compact?: boolean;
   className?: string;
 }

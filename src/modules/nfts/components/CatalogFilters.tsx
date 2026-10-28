@@ -12,9 +12,7 @@ interface CatalogFiltersProps {
   search: CatalogSearch;
   onChange: (patch: Partial<CatalogSearch>, options?: { replace?: boolean }) => void;
   onClear: () => void;
-  /** Mostra o campo de busca (no mobile ele fica na MobileSearchBar). */
   showSearch?: boolean;
-  /** Chamado depois de aplicar uma escolha (fecha o drawer). */
   onDone?: () => void;
   className?: string;
 }
@@ -122,7 +120,6 @@ function PriceRangeFilter({
   );
 }
 
-/** Conteúdo de filtros (sidebar no desktop, drawer no tablet/mobile). */
 export function CatalogFilters({ facets, search, onChange, onClear, showSearch = true, onDone, className }: CatalogFiltersProps) {
   const searchId = useId();
   const input = useSearchInput(search.q, (q) => onChange({ q: q || undefined }, { replace: true }));

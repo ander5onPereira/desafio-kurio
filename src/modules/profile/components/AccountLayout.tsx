@@ -9,7 +9,6 @@ import { useAuth } from "@/modules/auth";
 const itemClasses =
   "flex h-11 w-full items-center gap-3 border-l-4 border-transparent px-4 text-sm text-accent-foreground transition-colors hover:bg-background/40 aria-[current=page]:border-primary aria-[current=page]:bg-background/50";
 
-/** Itens fora de escopo (README §3): visíveis, mas desabilitados e sem aparência de sucesso. */
 const COMING_SOON: ReadonlyArray<{ label: string; icon: ReactNode }> = [
   { label: "Atividade", icon: <ShoppingCart className="size-[1.125rem]" aria-hidden="true" /> },
   { label: "Ofertas", icon: <Tag className="size-[1.125rem]" aria-hidden="true" /> },
@@ -49,7 +48,6 @@ export function AccountLayout() {
               Carteiras
             </Link>
           </li>
-          {/* "Lista de interesse" = favoritos do usuário. */}
           <li className="shrink-0 lg:shrink">
             <Link to="/perfil/favoritos" className={itemClasses}>
               <Heart className="size-[1.125rem]" aria-hidden="true" />

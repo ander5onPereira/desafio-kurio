@@ -11,17 +11,13 @@ export interface Credentials {
 }
 
 interface LoginOptions {
-  /** Rota de retorno após o login (padrão "/"). */
   redirect?: string;
   scenario?: ScenarioId;
 }
 
 interface Fixtures {
-  /** Control plane do servidor simulado (cenários, injeção de falhas, eventos de socket). */
   kurio: KurioClient;
-  /** Login pela UI (fluxo real) com um usuário fictício do seed ou com credenciais próprias. */
   loginAs: (user: TestUser | Credentials, options?: LoginOptions) => Promise<Credentials>;
-  /** Encerra a sessão pela UI (menu da conta no desktop; "Sair" do perfil no mobile). */
   logout: () => Promise<void>;
   /**
    * Cria uma conta NOVA direto na API do mock (sem sessão no app): sem carteiras, favoritos nem
@@ -76,7 +72,6 @@ export const test = base.extend<Fixtures>({
       if (await accountMenu.isVisible()) {
         await accountMenu.click();
         await page.getByRole("menuitem", { name: "Sair" }).click();
-        // Sessão encerrada: o menu da conta some (a rota pode continuar pública).
         await expect(accountMenu).toHaveCount(0);
       } else {
         // Mobile: não há menu no topo; o "Sair" fica em Meu perfil.

@@ -16,5 +16,4 @@ export function useMediaQuery(query: string): boolean {
   );
 }
 
-/** true a partir do breakpoint `md` (768px). */
 export const useIsDesktop = () => useMediaQuery("(min-width: 768px)");

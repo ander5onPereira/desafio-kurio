@@ -13,7 +13,6 @@ export interface AppPaginationProps {
   page: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-  /** Vizinhas de cada lado da página atual (padrão 1). */
   siblings?: number;
   /**
    * Para páginas como LINKS rastreáveis (SEO, abrir em nova aba), renderize um <Link> aqui:

@@ -89,7 +89,6 @@ export async function buildSeed(scenario: ScenarioId): Promise<DbState> {
   };
 }
 
-/** Restaura o banco para o seed do cenário e avisa as outras camadas (timers, contadores, injeções). */
 export async function resetDb(scenario: ScenarioId): Promise<void> {
   setDb(await buildSeed(scenario));
   persistNow();

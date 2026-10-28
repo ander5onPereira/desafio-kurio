@@ -10,9 +10,7 @@ import { activeScenario, bump, flags, isLatencyEnabled, nextLatencyRandom, takeI
  */
 export interface PreContext {
   method: string;
-  /** Padrão da rota do contrato (ex.: "/nfts/:nftId"). */
   routePattern: string;
-  /** Caminho real da requisição, sem a base da API (ex.: "/nfts/emerald-ape-042"). */
   pathname: string;
   searchParams: URLSearchParams;
 }

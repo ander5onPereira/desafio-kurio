@@ -14,7 +14,6 @@ const contentVariants = cva(
         md: "md:max-w-xl",
         lg: "md:max-w-3xl",
       },
-      /** Mobile: tela cheia (login, cadastro, confirmação). Desktop: diálogo centralizado. */
       fullScreenOnMobile: {
         true: "inset-0 rounded-none md:inset-auto md:left-1/2 md:top-1/2 md:max-h-[calc(100dvh-4rem)] md:w-[calc(100%-2rem)] md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-md",
         false:
@@ -35,12 +34,9 @@ export interface AppModalProps extends VariantProps<typeof contentVariants> {
   children: ReactNode;
   /** Esconde o botão de fechar (use só se houver outra forma explícita de sair). */
   hideClose?: boolean;
-  /** Faixa de destaque inferior (como nos modais do Figma). Padrão: sim. */
   accentBar?: boolean;
   className?: string;
-  /** Chamado ao fechar por Esc/clique fora. Padrão: fecha. */
   onEscapeKeyDown?: (event: KeyboardEvent) => void;
-  /** Elemento que recebe o foco ao abrir (padrão: o 1º focável, em geral o botão de fechar). */
   initialFocusRef?: RefObject<HTMLElement | null>;
 }
 

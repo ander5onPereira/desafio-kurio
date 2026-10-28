@@ -1,7 +1,6 @@
 import { callEndpoint } from "@/lib/api";
 import { endpoints, type AddCartItemBody, type UpdateCartItemBody } from "@/contracts";
 
-/** Chamadas REST do carrinho (todas via registro de contratos). */
 export const fetchCart = (signal?: AbortSignal) => callEndpoint(endpoints.cart.get, { signal });
 
 export const addCartItem = (body: AddCartItemBody) => callEndpoint(endpoints.cart.addItem, { body });

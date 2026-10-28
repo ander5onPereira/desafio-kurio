@@ -19,13 +19,9 @@ import { EnsNameField } from "./EnsNameField";
 import { FieldSelect } from "./FieldSelect";
 
 interface WalletFormProps {
-  /** Função da carteira (principal | secundária). */
   walletRole: WalletRole;
-  /** Carteira existente (edição) — sem ela, o formulário cria. */
   wallet?: Wallet;
-  /** Valores iniciais para criação (perfil do usuário, ou cópia da principal). */
   defaults: WalletFormDefaults;
-  /** Campos travados (caso "Igual à carteira principal"). */
   locked?: boolean;
   onSaved?: (wallet: Wallet) => void;
   onCancel?: () => void;

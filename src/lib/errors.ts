@@ -35,7 +35,6 @@ export class ApiError extends Error {
     this.retryable = RETRYABLE_CODES.includes(init.code);
   }
 
-  /** Primeira mensagem do campo (para exibir sob o input). */
   fieldError(field: string): string | undefined {
     return this.fieldErrors[field]?.[0];
   }
@@ -46,7 +45,6 @@ export const isApiError = (error: unknown): error is ApiError => error instanceo
 export const hasErrorCode = (error: unknown, ...codes: ApiErrorCode[]): error is ApiError =>
   isApiError(error) && codes.includes(error.code);
 
-/** Converte qualquer erro lançado pelo Axios em ApiError. */
 export function toApiError(error: unknown): ApiError {
   if (isApiError(error)) return error;
 

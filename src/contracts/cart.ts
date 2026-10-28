@@ -23,7 +23,6 @@ export const cartItemSchema = z.object({
   /** min(disponível, máximo por pedido). */
   maxQuantity: z.number().int().min(0),
   status: lineStatus,
-  /** Preço anterior quando status = price-changed (para o aviso "mudou de A para B"). */
   priceChangedFrom: ethString.nullable(),
   nftVersion: z.number().int().min(0),
 });
@@ -32,7 +31,6 @@ export type CartItem = z.infer<typeof cartItemSchema>;
 export const cartSchema = z.object({
   id: idSchema,
   items: z.array(cartItemSchema),
-  /** Soma das quantidades (é o número do badge do ícone do carrinho). */
   totalQuantity: z.number().int().min(0),
   version: z.number().int().min(0),
   updatedAt: isoDate,
@@ -56,7 +54,6 @@ export type UpdateCartItemBody = z.infer<typeof updateCartItemBodySchema>;
 export const mergeCartBodySchema = z.object({ guestCartId: z.string().min(1) });
 export const mergeCartResponseSchema = z.object({
   cart: cartSchema,
-  /** Itens ajustados na mescla (limite de quantidade/indisponível). */
   adjustments: z.array(
     z.object({ itemId: idSchema, code: z.enum(["LIMITED", "UNAVAILABLE"]), message: z.string() }),
   ),

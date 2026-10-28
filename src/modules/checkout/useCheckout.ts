@@ -98,7 +98,6 @@ export function useCheckout() {
     network: selectedWallet?.network ?? null,
   });
 
-  /** Grava o rascunho (mescla o que mudou). */
   const persist = useCallback(
     (patch: Partial<CheckoutDraft> = {}) => {
       const storage = draftStorage();
@@ -116,7 +115,6 @@ export function useCheckout() {
     [form, userId],
   );
 
-  // Pré-preenche (uma vez) com o perfil e a carteira principal quando não há rascunho.
   const prefilled = useRef(false);
   useEffect(() => {
     if (prefilled.current || !walletsQuery.isSuccess || !user) return;
@@ -140,27 +138,23 @@ export function useCheckout() {
     });
   }, [walletsQuery.isSuccess, wallets, user, form]);
 
-  // Provedor padrão = tipo da carteira selecionada; a rede da cotação segue a rede da carteira.
   useEffect(() => {
     if (!selectedWallet) return;
     quoteSettings.setNetwork(selectedWallet.network);
   }, [selectedWallet]);
 
-  // Persiste o formulário (digitação), a etapa e o provedor.
   useEffect(() => {
     // form.subscribe (RHF ≥ 7.55): observa os valores sem o `watch()`, que o React Compiler não memoiza.
     return form.subscribe({ formState: { values: true }, callback: () => persist() });
   }, [form, persist]);
   useEffect(() => persist({ step, provider }), [step, provider, persist]);
 
-  // Refresh com envio em voo: o resultado é desconhecido → só resta reenviar com a mesma chave.
   useEffect(() => {
     if (initialDraft.inFlight && initialDraft.reviewed) {
       dispatch({ type: "RESTORE_IN_FLIGHT", reviewed: initialDraft.reviewed });
     }
   }, [initialDraft]);
 
-  // Cotação "viva": se mudar enquanto o usuário revisa, bloqueia e pede reconfirmação.
   useEffect(() => {
     if (quote.data && !quote.isPlaceholderData) dispatch({ type: "LIVE_QUOTE", quote: quote.data });
   }, [quote.data, quote.isPlaceholderData]);
@@ -171,14 +165,12 @@ export function useCheckout() {
     if (wallet) setProvider(wallet.walletType);
   };
 
-  /** Mobile: valida o passo 1 antes de ir para "Carteira e rede". */
   const goToWalletStep = async () => {
     const valid = await form.trigger([...DATA_STEP_FIELDS]);
     if (valid) setStep("wallet");
     else announce("Corrija os campos destacados para continuar.", "assertive");
   };
 
-  /** Valida tudo, exige carteira conectada, busca cotação FRESCA e abre a revisão. */
   const startReview = async () => {
     setSubmitError(null);
     const valid = await form.trigger();
@@ -253,7 +245,6 @@ export function useCheckout() {
       announce("Não recebemos a resposta do servidor. Você pode tentar novamente sem risco de compra duplicada.", "assertive");
       return;
     }
-    // Falha definitiva (validação, permissão…): nada foi criado.
     persist({ inFlight: false });
     for (const [field, messages] of Object.entries(error.fieldErrors)) {
       const message = messages[0];
@@ -264,9 +255,8 @@ export function useCheckout() {
     toast.error(error.message);
   };
 
-  /** Envia (ou REENVIA, em `recovering`) o pedido com a chave da tentativa. */
   const submit = async () => {
-    if (submittingRef.current) return; // clique repetido no mesmo tick
+    if (submittingRef.current) return;
     if (state.status !== "reviewing" && state.status !== "recovering") return;
     const reviewed = state.reviewed;
     const body = buildBody(reviewed);
@@ -290,7 +280,6 @@ export function useCheckout() {
     }
   };
 
-  /** O usuário aceitou os novos valores: volta à revisão com a cotação nova e NOVA chave. */
   const reconfirm = () => {
     if (state.status !== "needsReconfirm") return;
     if (state.latest) persist({ idempotencyKey: createIdempotencyKey(), reviewed: state.latest, inFlight: false });
@@ -317,7 +306,6 @@ export function useCheckout() {
     submitError,
     isSubmitting: state.status === "submitting",
     submitBlocked: isSubmitBlocked(state) || pendingOrder !== null,
-    // dados
     cart,
     quote,
     wallets,

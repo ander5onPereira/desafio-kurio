@@ -150,7 +150,6 @@ export function updateItem(cart: DbCart, itemId: string, quantity: number): Cart
   mutate(() => {
     if (quantity > max) throw conflict(item.nftId, item.editionId, quantity, max);
     item.quantity = quantity;
-    // Alterar a quantidade conta como "ciente do preço atual".
     item.priceAtAdd = edition?.price ?? item.priceAtAdd;
     touch(cart);
   });
@@ -165,7 +164,6 @@ export function removeItem(cart: DbCart, itemId: string): Cart {
   return toCartDto(cart);
 }
 
-/** Remove SÓ as quantidades compradas (itens parcialmente comprados ficam com o restante). */
 export function removePurchased(cart: DbCart, purchased: Array<{ nftId: string; editionId: string; quantity: number }>): void {
   mutate(() => {
     for (const bought of purchased) {
@@ -178,7 +176,6 @@ export function removePurchased(cart: DbCart, purchased: Array<{ nftId: string; 
   });
 }
 
-/** Mescla o carrinho de visitante no do usuário respeitando estoque/limite. */
 export function mergeGuestCart(userCart: DbCart, guestCartId: string): MergeCartResponse {
   const adjustments: MergeCartResponse["adjustments"] = [];
   mutate((db) => {

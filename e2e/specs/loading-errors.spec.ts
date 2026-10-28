@@ -18,10 +18,8 @@ test("carregamento lento mostra skeleton (anunciado) e depois o conteúdo, sem d
   });
 
   await kurio.open("/", "slow");
-  // Skeleton visível e com texto para leitor de tela.
   await expect(page.getByRole("status").filter({ hasText: "Carregando catálogo" })).toBeVisible();
 
-  // Depois de carregar, o conteúdo real aparece.
   await expect(page.getByRole("list", { name: "Catálogo de NFTs" })).toBeVisible({ timeout: 20_000 });
   await expect(page.getByRole("status").filter({ hasText: "Carregando catálogo" })).toHaveCount(0);
 
@@ -48,7 +46,6 @@ test("falhas transitórias curtas são recuperadas sozinhas pelo retry (sem inte
   await kurio.open("/");
   await expect(page.getByRole("list", { name: "Catálogo de NFTs" })).toBeVisible();
 
-  // Duas falhas seguidas cabem nas retentativas automáticas: o usuário não precisa fazer nada.
   await kurio.inject({ method: "get", path: "/nfts*", behavior: { type: "status", status: 503, code: "TRANSIENT" }, times: 2 });
   await page.getByRole("search").getByLabel("Buscar NFTs").fill("Golden");
   await expect(page.getByRole("list", { name: "Catálogo de NFTs" })).toBeVisible({ timeout: 20_000 });
@@ -59,12 +56,10 @@ test("falha persistente mostra erro com 'Tentar novamente' e recupera depois", a
   await kurio.open("/");
   await expect(page.getByRole("list", { name: "Catálogo de NFTs" })).toBeVisible();
 
-  // A busca passa a falhar de forma persistente (injeção até limpar).
   await kurio.inject({ method: "get", path: "/nfts*", behavior: { type: "status", status: 503, code: "TRANSIENT" }, times: Infinity });
   await page.getByRole("search").getByLabel("Buscar NFTs").fill("Golden");
   await expect(catalogRetry(page)).toBeVisible({ timeout: 30_000 });
 
-  // O servidor se recupera e a nova tentativa funciona.
   await kurio.clearInjections();
   await catalogRetry(page).click();
   await expect(page.getByRole("list", { name: "Catálogo de NFTs" })).toBeVisible();

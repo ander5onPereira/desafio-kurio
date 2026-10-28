@@ -15,7 +15,6 @@ import type { ScenarioId } from "@/contracts";
  *  - pedidos pendentes são reagendados: refresh nunca deixa um pedido preso.
  */
 export async function initServer(search: string = window.location.search): Promise<void> {
-  // Reset do banco → limpa timers, log de eventos e bloqueio do websocket.
   onDbReset(() => {
     clearOrderTimers();
     clearEventLog();

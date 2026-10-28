@@ -11,7 +11,6 @@ export interface CheckoutLine {
   image: Artwork;
 }
 
-/** "Seus NFTs": linhas do pedido (miniatura, nome, ID do token, (x qtd) e subtotal), como no Figma. */
 export function CheckoutItems({ lines }: { lines: readonly CheckoutLine[] }) {
   return (
     <ul aria-label="Seus NFTs" className="flex flex-col gap-2">

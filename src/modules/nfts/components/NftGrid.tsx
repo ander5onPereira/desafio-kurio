@@ -5,18 +5,14 @@ import { NftCard, NftCardSkeleton } from "./NftCard";
 
 interface NftGridProps {
   items: readonly NftSummary[];
-  /** Rótulo da lista para leitores de tela (ex.: "Catálogo de NFTs"). */
   label: string;
-  /** Quantas imagens iniciais têm prioridade de carregamento (LCP). */
   priorityCount?: number;
   className?: string;
 }
 
-/** Grade responsiva de NFTs: 2 colunas no mobile (com a coluna direita deslocada, como no Figma), 3 a partir do tablet. */
 const gridClass =
   "grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-3 md:gap-x-8 md:gap-y-10 [&>li:nth-child(even)]:mt-10 md:[&>li:nth-child(even)]:mt-0";
 
-/** Lista reutilizável (Início, favoritos, relacionados). */
 export function NftGrid({ items, label, priorityCount = 0, className }: NftGridProps) {
   return (
     <ul aria-label={label} className={cn(gridClass, className)}>

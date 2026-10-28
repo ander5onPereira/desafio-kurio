@@ -6,7 +6,6 @@ import { useWallets } from "../hooks";
 import { copyFromPrimary, type WalletFormDefaults } from "../schemas";
 import { WalletForm } from "./WalletForm";
 
-/** Valores iniciais para uma carteira nova: dados do próprio usuário, sem inventar endereço. */
 function useNewWalletDefaults(role: WalletRole): WalletFormDefaults {
   const { user } = useAuth();
   return {
@@ -91,7 +90,6 @@ function SecondaryWalletSection({ wallet, primary }: { wallet?: Wallet; primary?
         <p className="text-sm text-muted-foreground">Você ainda não adicionou uma carteira secundária.</p>
       ) : (
         <WalletForm
-          // Remonta ao alternar "igual à principal" para recarregar os valores iniciais.
           key={`${wallet?.id ?? "nova-secundaria"}-${sameAsPrimary ? "copia" : "livre"}`}
           walletRole="secondary"
           wallet={wallet}
@@ -104,7 +102,6 @@ function SecondaryWalletSection({ wallet, primary }: { wallet?: Wallet; primary?
   );
 }
 
-/** Carteiras (`/perfil/carteiras`): cadastro e edição da carteira principal e da secundária. */
 export function WalletsPage() {
   const wallets = useWallets();
   const primary = wallets.data?.items.find((item) => item.role === "primary");

@@ -13,7 +13,6 @@ export const checkoutFormSchema = collectorSchema.extend({
 export type CheckoutFormInput = z.input<typeof checkoutFormSchema>;
 export type CheckoutFormValues = z.output<typeof checkoutFormSchema>;
 
-/** Campos validados no passo 1 (mobile) antes de ir para "Carteira e rede". */
 export const DATA_STEP_FIELDS = [
   "displayName",
   "username",

@@ -33,7 +33,6 @@ export interface Endpoint<
   R extends z.ZodType = z.ZodType,
 > {
   readonly method: HttpMethod;
-  /** Caminho relativo à base da API, com parâmetros no estilo `:id` (igual ao MSW). */
   readonly path: P;
   readonly auth: AuthMode;
   readonly body?: B;
@@ -51,7 +50,6 @@ export function defineEndpoint<
   return endpoint;
 }
 
-/** Argumentos de `callEndpoint`: só exige `params`/`body`/`query` quando o endpoint declara. */
 export type CallArgs<P extends string, B extends OptionalSchema, Q extends OptionalSchema> = {
   signal?: AbortSignal;
   headers?: Record<string, string>;
@@ -61,7 +59,6 @@ export type CallArgs<P extends string, B extends OptionalSchema, Q extends Optio
   ([B] extends [z.ZodType] ? { body: z.input<B> } : { body?: undefined }) &
   ([Q] extends [z.ZodType] ? { query: z.input<Q> } : { query?: undefined });
 
-/** Substitui `:param` por valores codificados. */
 export function buildPath(path: string, params?: Record<string, string>): string {
   return path.replace(/:([A-Za-z0-9_]+)/g, (_, name: string) => {
     const value = params?.[name];

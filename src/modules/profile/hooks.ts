@@ -10,7 +10,6 @@ function useProfileScope() {
   return { userId: user?.id ?? null, scope: scopeOf(user?.id) };
 }
 
-/** Perfil do colecionador logado (5 min de frescor; muda só por ação do próprio usuário). */
 export function useProfile() {
   const { userId, scope } = useProfileScope();
   return useQuery<Profile, ApiError>({

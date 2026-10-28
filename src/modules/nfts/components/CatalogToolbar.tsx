@@ -8,9 +8,7 @@ export const sortOptions = NFT_SORTS.map((value) => ({ value, label: NFT_SORT_LA
 interface CatalogToolbarProps {
   search: CatalogSearch;
   onChange: (patch: Partial<CatalogSearch>) => void;
-  /** Tablet (768–1023): botão "Filtros" abre o drawer. No desktop a sidebar já está visível. */
   showFiltersButton: boolean;
-  /** "Ordenar por" na barra (tablet/desktop). No mobile a ordenação fica no drawer de filtros. */
   showSort: boolean;
   onOpenFilters: () => void;
   activeFilters: number;

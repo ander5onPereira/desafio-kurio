@@ -8,23 +8,19 @@
 :root {
   color-scheme: dark;
 
-  /* Superfícies */
   --background: #140d0a; /* fundo da página */
   --card: #241612; /* cards, linhas, sidebar, inputs */
   --surface-strip: #38220f; /* faixa marrom do rodapé */
   --overlay: rgb(10 6 4 / 0.72); /* fundo de diálogos/drawers */
 
-  /* Linhas */
   --border: #432c1a;
   --input: #432c1a;
 
-  /* Texto */
   --foreground: #f5f1eb; /* títulos e texto principal */
   --muted-foreground: #cfb28c; /* texto auxiliar */
   --subtle-foreground: #b39463; /* placeholders, metadados */
   --accent-foreground: #e89b55; /* destaque em texto (aba ativa, taxa estimada, asterisco) */
 
-  /* Marca */
   --primary: #d28a4c;
   --primary-hover: #dd9a5f;
   --primary-pressed: #bf7a3e;
@@ -87,11 +83,9 @@
   --radius-xl: 16px;
   --radius-2xl: 24px;
 
-  /* Tipografia: monoespaçada do Figma (Roboto Mono), usada em TODA a interface. */
   --font-sans: "Roboto Mono Variable", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   --font-mono: "Roboto Mono Variable", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 
-  /* Breakpoints (avaliados em 390 / 768 / 1440) */
   --breakpoint-sm: 40rem;
   --breakpoint-md: 48rem;
   --breakpoint-lg: 64rem;

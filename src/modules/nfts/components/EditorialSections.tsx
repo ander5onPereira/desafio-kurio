@@ -31,7 +31,6 @@ const PROMOS: readonly Promo[] = [
   },
 ];
 
-/** Dois banners promocionais abaixo da paginação. Os botões "Explorar" aplicam filtros reais no catálogo. */
 export function PromoBanners() {
   return (
     <section aria-label="Destaques promocionais" className="grid gap-6 md:grid-cols-2">

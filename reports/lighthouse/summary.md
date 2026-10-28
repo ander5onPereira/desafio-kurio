@@ -1,24 +1,24 @@
 # Lighthouse — resultados
 
-Gerado em 2026-10-27T05:58:18.869Z por `npm run lh` (script: `scripts/lighthouse.ts`, config: `scripts/lighthouse.config.ts`).
+Gerado em 2026-10-28T02:15:36.533Z por `npm run lh` (script: `scripts/lighthouse.ts`, config: `scripts/lighthouse.config.ts`).
 
 ## Pontuação (mediana de 3 medições)
 
 | Página | Perfil | Performance (≥90) | Accessibility (≥95) | Best Practices (≥95) | SEO (≥90) |
 | --- | --- | ---: | ---: | ---: | ---: |
-| Início | mobile | 77 ❌ | 97 ✅ | 100 ✅ | 100 ✅ |
-| Início | desktop | 97 ✅ | 97 ✅ | 100 ✅ | 100 ✅ |
-| Detalhe do NFT | mobile | 83 ❌ | 97 ✅ | 100 ✅ | 100 ✅ |
-| Detalhe do NFT | desktop | 98 ✅ | 97 ✅ | 100 ✅ | 100 ✅ |
+| Início | mobile | 84 ❌ | 97 ✅ | 100 ✅ | 100 ✅ |
+| Início | desktop | 98 ✅ | 97 ✅ | 100 ✅ | 100 ✅ |
+| Detalhe do NFT | mobile | 88 ❌ | 97 ✅ | 100 ✅ | 100 ✅ |
+| Detalhe do NFT | desktop | 99 ✅ | 97 ✅ | 100 ✅ | 100 ✅ |
 
 ## Métricas de carga (mediana)
 
 | Página | Perfil | LCP | CLS | TBT | FCP | Performance por medição |
 | --- | --- | ---: | ---: | ---: | ---: | --- |
-| Início | mobile | 4142 ms | 0.000 | 267 ms | 2578 ms | 79 / 77 / 77 |
-| Início | desktop | 1163 ms | 0.000 | 1 ms | 718 ms | 97 / 97 / 97 |
-| Detalhe do NFT | mobile | 3877 ms | 0.000 | 149 ms | 2546 ms | 83 / 83 / 83 |
-| Detalhe do NFT | desktop | 1042 ms | 0.000 | 0 ms | 697 ms | 98 / 98 / 98 |
+| Início | mobile | 3522 ms | 0.000 | 226 ms | 2276 ms | 85 / 81 / 84 |
+| Início | desktop | 1089 ms | 0.000 | 1 ms | 682 ms | 98 / 98 / 98 |
+| Detalhe do NFT | mobile | 3253 ms | 0.000 | 163 ms | 2231 ms | 87 / 89 / 88 |
+| Detalhe do NFT | desktop | 933 ms | 0.000 | 0 ms | 640 ms | 98 / 99 / 99 |
 
 ## Ambiente e condições de execução
 

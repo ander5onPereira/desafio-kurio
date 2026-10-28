@@ -87,7 +87,6 @@ async function refreshSession(): Promise<boolean> {
   }
 }
 
-/** Limpa o que é privado de quem estava logado. */
 function dropPrivateData(options: { storages: boolean }) {
   queryClient.clear();
   if (options.storages) clearPrivateStorage();
@@ -126,7 +125,6 @@ function applySession(next: Session, reason: "login" | "register") {
   const previousUser = snapshot.user;
   session = next;
   writeStoredSession(next);
-  // Troca de usuário: nada do anterior pode vazar (cache, rascunhos).
   if (previousUser && previousUser.id !== next.user.id) dropPrivateData({ storages: true });
   setSnapshot(authenticated(next.user), reason);
 }
@@ -159,7 +157,6 @@ async function restore() {
 
 export const authStore = {
   getSnapshot: (): AuthSnapshot => snapshot,
-  /** Resolve quando a restauração inicial terminou (usado pelo guard das rotas privadas). */
   ensureReady: async (): Promise<AuthSnapshot> => {
     await readyPromise;
     return snapshot;
@@ -198,8 +195,6 @@ export const authStore = {
     await leavePrivateRoute();
   },
 };
-
-// --- Boot ---------------------------------------------------------------------------------
 
 configureApiBridge({
   getAccessToken: () => session?.accessToken ?? null,

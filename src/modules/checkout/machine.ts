@@ -27,7 +27,6 @@ export type CheckoutState =
   | {
       status: "needsReconfirm";
       reviewed: Quote;
-      /** Cotação nova (null quando só há conflito de estoque sem cotação nova). */
       latest: Quote | null;
       reason: ReconfirmReason;
       conflicts: ConflictItem[];
@@ -121,7 +120,6 @@ export function checkoutReducer(state: CheckoutState, event: CheckoutEvent): Che
   }
 }
 
-/** True quando o botão de confirmar deve ficar bloqueado por falta de revisão/atualização. */
 export const isSubmitBlocked = (state: CheckoutState): boolean =>
   state.status === "needsReconfirm" || state.status === "submitting" || state.status === "completed";
 
@@ -133,7 +131,6 @@ export interface QuoteLineDiff {
   priceFrom: string | null;
   priceTo: string | null;
   priceChanged: boolean;
-  /** Linha que existia e deixou de existir (ou ficou sem estoque). */
   unavailable: boolean;
 }
 
@@ -147,7 +144,6 @@ export interface QuoteDiff {
   hasChanges: boolean;
 }
 
-/** O que mudou entre a cotação revisada e a nova (exibido em "o que mudou"). */
 export function diffQuotes(before: Quote, after: Quote): QuoteDiff {
   const afterById = new Map(after.lines.map((line) => [line.itemId, line]));
   const lines: QuoteLineDiff[] = before.lines.map((line) => {

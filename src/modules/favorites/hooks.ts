@@ -7,7 +7,6 @@ import { keys, scopeOf } from "@/lib/queryKeys";
 import { announce } from "@/components/shared";
 import { authStore, useAuth } from "@/modules/auth";
 
-/** Favoritos do usuário autenticado (cache isolado por usuário via `keys.favorites(scope)`). */
 export function useFavorites() {
   const { user, isAuthenticated } = useAuth();
   return useQuery<FavoritesResponse, ApiError>({
@@ -19,7 +18,6 @@ export function useFavorites() {
   });
 }
 
-/** true se o NFT está nos favoritos (false para visitante). */
 export function useIsFavorite(nftId: string): boolean {
   const { user, isAuthenticated } = useAuth();
   const { data } = useQuery<FavoritesResponse, ApiError, boolean>({
@@ -34,9 +32,7 @@ export function useIsFavorite(nftId: string): boolean {
 }
 
 interface ToggleVariables {
-  /** NFT afetado. O resumo completo permite inserir o item na lista de forma otimista. */
   nft: NftSummary;
-  /** Estado ALVO: true = favoritar, false = remover. */
   favorited: boolean;
 }
 
@@ -77,7 +73,6 @@ export function useToggleFavorite() {
     },
     onError: (error, { nft, favorited }, context) => {
       if (context) {
-        // Se não havia cache antes, remove o patch otimista; senão restaura o snapshot.
         if (context.previous) queryClient.setQueryData(keys.favorites(context.scope), context.previous);
         else queryClient.removeQueries({ queryKey: keys.favorites(context.scope), exact: true });
       }

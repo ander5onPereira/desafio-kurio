@@ -6,13 +6,9 @@ import { cn } from "@/lib/utils";
 export interface MobileSearchBarProps {
   /** Valor inicial (a URL é a fonte da verdade: passe o `q` atual). Use `key={q}` para ressincronizar. */
   defaultValue?: string;
-  /** A cada digitação (o chamador faz o debounce com `useDebouncedValue`). */
   onChange?: (value: string) => void;
-  /** Ao enviar (Enter/botão de busca do teclado). */
   onSearch?: (value: string) => void;
-  /** Abre o drawer de filtros (montado pelo catálogo). */
   onOpenFilters: () => void;
-  /** Quantidade de filtros ativos (aparece na bolinha do botão). */
   activeFilters?: number;
   placeholder?: string;
   className?: string;

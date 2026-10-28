@@ -37,7 +37,6 @@ function resolveCoupon(code: string | null) {
   return coupon;
 }
 
-/** Calcula a cotação (sem persistir). */
 export function computeQuote(cart: DbCart, input: QuoteInput): Omit<Quote, "id" | "createdAt" | "expiresAt"> {
   const coupon = resolveCoupon(input.couponCode);
   const infos = cart.items.map(lineInfo);
@@ -107,7 +106,6 @@ export function computeQuote(cart: DbCart, input: QuoteInput): Omit<Quote, "id" 
   };
 }
 
-/** Calcula, registra (para validar o pedido depois) e devolve a cotação. */
 export function issueQuote(cart: DbCart, ownerKey: string, input: QuoteInput): Quote {
   const computed = computeQuote(cart, input);
   const now = clock.now();

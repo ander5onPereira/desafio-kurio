@@ -10,7 +10,6 @@ import { authStore } from "@/modules/auth";
 export interface QuoteSettings {
   couponCode: string | null;
   network: NetworkId;
-  /** Aviso mostrado no carrinho quando um cupom salvo deixou de valer (ex.: expirou). */
   notice: string | null;
 }
 

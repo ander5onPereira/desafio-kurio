@@ -15,7 +15,6 @@ import { SpotlightCard } from "./SpotlightCard";
 import { useSearchInput } from "./useSearchInput";
 
 export interface HomePageProps {
-  /** Estado do catálogo (vem da URL). */
   search: CatalogSearch;
   /** Grava o novo estado na URL. `replace` evita empilhar histórico a cada tecla da busca. */
   onSearchChange: (next: CatalogSearch, options?: { replace?: boolean }) => void;
@@ -45,7 +44,6 @@ export function HomePage({ search, onSearchChange }: HomePageProps) {
 
   const change = (patch: Partial<CatalogSearch>, options?: { replace?: boolean }) =>
     onSearchChange(applyPatch(search, patch), options);
-  // "Limpar filtros" remove busca, coleção, rede e preço; mantém aba e ordenação.
   const clearFilters = () => onSearchChange(normalizeSearch({ sort: search.sort, tab: search.tab }));
 
   const mobileSearch = useSearchInput(search.q, (q) => change({ q: q || undefined }, { replace: true }));

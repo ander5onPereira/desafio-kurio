@@ -24,7 +24,6 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      # tipos + ESLint + Vitest + contraste dos tokens + fronteira dos mocks
       - name: Verificações (npm run check)
         run: npm run check
 

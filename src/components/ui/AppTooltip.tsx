@@ -3,7 +3,6 @@ import { Tooltip } from "radix-ui";
 
 export interface AppTooltipProps {
   content: ReactNode;
-  /** O gatilho (um elemento focável). Renderizado como filho direto (asChild). */
   children: ReactNode;
   side?: "top" | "right" | "bottom" | "left";
   delayDuration?: number;

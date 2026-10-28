@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { idSchema, isoDate } from "./common";
 
-/** Regras de senha compartilhadas (cadastro, alteração de senha). */
 export const passwordSchema = z
   .string()
   .min(8, "A senha deve ter pelo menos 8 caracteres")
@@ -15,15 +14,12 @@ export const usernameSchema = z
   .max(24, "Máximo de 24 caracteres")
   .regex(/^[a-z0-9_.]+$/, "Use apenas letras minúsculas, números, ponto e sublinhado");
 
-/** Usuário/perfil do colecionador. Nunca contém senha. */
 export const userSchema = z.object({
   id: idSchema,
   username: z.string(),
   displayName: z.string(),
   email: z.email(),
-  /** data URL (avatar enviado) ou null. */
   avatarUrl: z.string().nullable(),
-  /** Nome ENS completo, ex.: "nova.eth". */
   ensName: z.string().nullable(),
   walletNickname: z.string().nullable(),
   createdAt: isoDate,
@@ -46,7 +42,6 @@ export type LoginBody = z.infer<typeof loginBodySchema>;
 export const sessionSchema = z.object({
   accessToken: z.string(),
   refreshToken: z.string(),
-  /** Expiração do accessToken. */
   expiresAt: isoDate,
   user: userSchema,
 });

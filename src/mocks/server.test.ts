@@ -28,7 +28,6 @@ interface Call {
   signal?: AbortSignal;
 }
 
-/** JSON de resposta sem tipo estático: as asserções fortes usam os schemas do contrato (`.parse`). */
 type LooseJson = Record<string, ReturnType<typeof JSON.parse>>;
 
 async function call(path: string, { method = "GET", body, token, headers = {}, signal }: Call = {}) {

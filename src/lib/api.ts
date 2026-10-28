@@ -20,10 +20,8 @@ export const api = axios.create({
   paramsSerializer: { indexes: null },
 });
 
-/** Ponte entre o Axios e os módulos de sessão/carrinho (injetada no boot por modules/auth e modules/cart). */
 export interface ApiBridge {
   getAccessToken(): string | null;
-  /** Id do carrinho de visitante (header X-Cart-Id); null quando logado. */
   getGuestCartId(): string | null;
   /** Tenta renovar a sessão. true = renovou. Chamado no máximo UMA vez por rajada de 401. */
   refreshSession(): Promise<boolean>;
@@ -40,7 +38,6 @@ export function configureApiBridge(next: Partial<ApiBridge>) {
   Object.assign(bridge, next);
 }
 
-/** Códigos de 401 que justificam tentar renovar a sessão. */
 const REFRESHABLE = new Set(["SESSION_EXPIRED"]);
 let refreshing: Promise<boolean> | null = null;
 
@@ -83,10 +80,6 @@ api.interceptors.response.use(
   },
 );
 
-/**
- * Chamada tipada a um endpoint do registro de contratos.
- * Ex.: `callEndpoint(endpoints.nfts.detail, { params: { nftId } , signal })`
- */
 export async function callEndpoint<
   P extends string,
   B extends z.ZodType | undefined,
@@ -97,7 +90,6 @@ export async function callEndpoint<
   return data;
 }
 
-/** Variante que devolve também os cabeçalhos (ex.: `Idempotent-Replayed`). */
 export async function callEndpointRaw<
   P extends string,
   B extends z.ZodType | undefined,

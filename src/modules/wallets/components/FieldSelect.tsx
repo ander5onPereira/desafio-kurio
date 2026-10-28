@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 
 export interface FieldSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   invalid?: boolean;
-  /** Classes do wrapper (ex.: `w-auto` para um select de largura própria). */
   wrapperClassName?: string;
 }
 

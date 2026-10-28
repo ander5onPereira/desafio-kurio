@@ -16,7 +16,6 @@ test.describe("Cadastro", () => {
     await form.getByRole("button", { name: "Criar conta" }).click();
 
     await expect(page).toHaveURL((url) => url.pathname === "/");
-    // Sessão ativa: o menu da conta aparece e o botão "Entrar" some.
     await expect(page.getByRole("link", { name: "Entrar", exact: true })).toHaveCount(0);
   });
 
@@ -111,7 +110,6 @@ test.describe("Sessão expirada, logout e troca de usuário", () => {
   });
 
   test("troca de usuário não vaza dados privados da sessão anterior", async ({ page, loginAs }) => {
-    // Ana: favoritos próprios.
     await loginAs("ana", { redirect: "/perfil/favoritos" });
     const favorites = page.getByRole("list", { name: "NFTs favoritos" });
     await expect(favorites.getByRole("heading", { level: 3, name: "Emerald Ape #042" })).toBeVisible();
@@ -124,7 +122,6 @@ test.describe("Sessão expirada, logout e troca de usuário", () => {
     await expect(favorites.getByRole("heading", { level: 3, name: "Sage Nomad #009" })).toBeVisible();
     await expect(favorites.getByRole("heading", { level: 3, name: "Emerald Ape #042" })).toHaveCount(0);
 
-    // Perfil também é do Bruno.
     await page.goto("/perfil");
     await expect(page.getByLabel("Nome de exibição")).toHaveValue("Bruno Vega");
   });

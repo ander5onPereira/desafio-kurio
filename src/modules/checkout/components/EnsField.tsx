@@ -1,7 +1,6 @@
 import { AppInput, AppSelect } from "@/components/ui";
 import type { FormFieldControlProps } from "@/components/ui";
 
-/** Sufixos oferecidos (Figma: seletor ".eth" ao lado do nome). */
 const SUFFIXES = [".kurio.eth", ".eth"] as const;
 
 /** "nova.kurio.eth" → { name: "nova", suffix: ".kurio.eth" }. Sem sufixo conhecido, assume ".eth". */

@@ -43,7 +43,6 @@ export const isLatencyEnabled = (): boolean => latencyEnabled;
 
 export const isScenarioId = (value: string): value is ScenarioId => (SCENARIO_IDS as readonly string[]).includes(value);
 
-/** Troca o cenário e zera contadores, one-shots, injeções e a sequência de latência. */
 export function setActiveScenario(id: ScenarioId, options: { keepInjections?: boolean } = {}): void {
   const previous = runtime.injections;
   runtime = createRuntime(id);
@@ -60,14 +59,12 @@ export const activeScenarioId = (): ScenarioId => runtime.scenario;
 export const activeScenario = (): ScenarioDef => SCENARIOS[runtime.scenario];
 export const flags = (): ScenarioFlags => SCENARIOS[runtime.scenario].flags;
 
-/** Incrementa e devolve o contador nomeado (1ª chamada → 1). */
 export function bump(key: string): number {
   const value = (runtime.counters.get(key) ?? 0) + 1;
   runtime.counters.set(key, value);
   return value;
 }
 
-/** true somente na PRIMEIRA vez para a chave (comportamentos "uma vez por reset"). */
 export function consumeOnce(key: string): boolean {
   const counters = getDb().meta.counters;
   const stored = `once:${key}`;
@@ -98,7 +95,6 @@ const matchesPath = (rulePath: string, routePattern: string, actualPath: string)
   return rulePath === routePattern || rulePath === actualPath;
 };
 
-/** Primeira injeção aplicável (consome 1 uso). */
 export function takeInjection(method: string, routePattern: string, actualPath: string): InjectRule | null {
   const index = runtime.injections.findIndex(
     (entry) =>

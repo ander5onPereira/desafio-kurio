@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { passwordSchema, userSchema, usernameSchema } from "./auth";
 
-/** Perfil = o próprio usuário (sem senha). */
 export const profileSchema = userSchema;
 export type Profile = z.infer<typeof profileSchema>;
 

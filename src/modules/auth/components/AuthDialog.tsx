@@ -10,7 +10,6 @@ import { SocialButtons } from "./SocialButtons";
 
 export interface AuthDialogProps {
   mode: "login" | "register";
-  /** Parâmetro `?redirect=` já lido da URL (será validado aqui). */
   redirect?: string;
 }
 

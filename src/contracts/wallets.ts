@@ -11,26 +11,20 @@ export function isValidAddress(network: NetworkId, address: string): boolean {
   return /^0x[a-fA-F0-9]{40}$/.test(address);
 }
 
-/** Campos do formulário de carteira (Perfil > Carteiras e Pagamento). Campos com * no Figma = obrigatórios. */
 export const walletFieldsSchema = z.object({
   role: walletRole,
   displayName: z.string().trim().min(2, "Informe o nome de exibição").max(40),
-  /** "Apelido da carteira" (ex.: Reserva, Principal). */
   nickname: z.string().trim().min(2, "Informe o apelido da carteira").max(24),
   network: networkId,
   profileName: z.string().trim().min(2, "Informe o nome do perfil").max(40),
   address: z.string().trim().min(1, "Informe o endereço da carteira"),
-  /** "ENS ou carteira secundária (opcional)". */
   secondaryRef: z.string().trim().max(80).nullable().optional(),
   walletType: walletProvider,
-  /** "Código de indicação*" — validado contra a lista do mock (ex.: KURIO-2026). */
   referralCode: z.string().trim().min(4, "Informe o código de indicação").max(24),
   email: z.email("E-mail inválido"),
-  /** Nome ENS completo, ex.: "nova.kurio.eth". */
   ensName: z.string().trim().min(3, "Informe o nome ENS").max(60),
 });
 
-/** Corpo de criação/atualização (a regra de endereço depende da rede). */
 export const walletInputSchema = walletFieldsSchema.superRefine((value, ctx) => {
   if (!isValidAddress(value.network, value.address)) {
     ctx.addIssue({

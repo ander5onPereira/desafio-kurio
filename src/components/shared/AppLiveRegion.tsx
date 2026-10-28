@@ -31,7 +31,6 @@ export function announce(message: string, politeness: Politeness = "polite") {
   }, 50);
 }
 
-/** Hook de conveniência (referência estável). */
 export function useAnnounce() {
   return announce;
 }

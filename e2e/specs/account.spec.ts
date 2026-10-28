@@ -106,27 +106,24 @@ test.describe("Perfil do colecionador", () => {
     await loginAs(account, { redirect: "/perfil" });
 
     await fillRequiredProfile(page);
-    // 1) Confirmação diferente (validação no cliente).
     await page.getByLabel("Senha atual").fill(account.password);
     await page.getByLabel(/^Nova senha/).fill("NovaSenha@2027");
     await page.getByLabel(/^Confirmar nova senha/).fill("OutraCoisa@2027");
     await page.getByRole("button", { name: "Salvar" }).click();
     await expect(page.getByLabel(/^Confirmar nova senha/)).toHaveAttribute("aria-invalid", "true");
 
-    // 2) Senha atual errada (erro da API no campo da senha atual).
     await page.getByLabel(/^Confirmar nova senha/).fill("NovaSenha@2027");
     await page.getByLabel("Senha atual").fill("senha-errada-1");
     await page.getByRole("button", { name: "Salvar" }).click();
     await expect(page.getByLabel("Senha atual")).toHaveAttribute("aria-invalid", "true");
 
-    // 3) Correta.
     await page.getByLabel("Senha atual").fill(account.password);
     await page.getByRole("button", { name: "Salvar" }).click();
     await expect(page.getByText("Perfil e senha atualizados.")).toBeVisible();
 
     // A nova senha vale no próximo login (resultado real da operação no servidor simulado).
     await page.getByRole("button", { name: "Sair" }).click();
-    await expect(page).toHaveURL((url) => url.pathname === "/"); // logout concluído (sessão limpa)
+    await expect(page).toHaveURL((url) => url.pathname === "/");
     await loginAs({ ...account, password: "NovaSenha@2027" }, { redirect: "/perfil" });
     await expect(page.getByRole("heading", { name: "Perfil do colecionador" })).toBeVisible();
   });
@@ -187,7 +184,6 @@ test.describe("Carteiras", () => {
     await primary.getByRole("button", { name: "Salvar carteira" }).click();
     await expect(page.getByText("Carteira cadastrada.")).toBeVisible();
 
-    // Secundária (Polygon) — "Adicionar" revela o formulário.
     await page.getByRole("button", { name: "Adicionar" }).click();
     const secondary = page.getByRole("form", { name: "Carteira secundária" });
     await fillWallet(secondary, {
@@ -248,7 +244,6 @@ test.describe("Carteiras", () => {
   });
 });
 
-/** Preenche o formulário de carteira com valores válidos (sobrescreva só o que o teste precisa). */
 async function fillWallet(
   form: Locator,
   overrides: Partial<{ nickname: string; network: string; address: string; referralCode: string }> = {},

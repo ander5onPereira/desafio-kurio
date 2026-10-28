@@ -45,7 +45,6 @@ const later = (ms: number, fn: () => void) => {
 export interface CreateOrderResult {
   order: Order;
   replayed: boolean;
-  /** true → o handler deve segurar a resposta (cenário order-timeout). */
   hold: boolean;
 }
 
@@ -66,7 +65,6 @@ function availabilityConflicts(cart: DbCart) {
 }
 
 function txHash(): string {
-  // Cosmético: "0xA91F…E82C" (como no recibo do Figma), meio gerado pelo PRNG.
   return `0xA91F${withRng((rng) => rng.hex(56))}E82C`;
 }
 
@@ -78,7 +76,6 @@ export function createOrder(user: DbUser, body: CreateOrderBody, idempotencyKey:
   const requestHash = requestHashOf(body);
   const storageKey = `${user.id}:${idempotencyKey}`;
 
-  // 1) Idempotência
   const existingId = db.idempotency[storageKey];
   if (existingId) {
     const existing = db.orders[existingId];
@@ -91,7 +88,6 @@ export function createOrder(user: DbUser, body: CreateOrderBody, idempotencyKey:
     }
   }
 
-  // 2) Validações do corpo
   const wallet = db.wallets[body.walletId];
   if (!wallet || wallet.userId !== user.id) throw notFound("Carteira");
   if (!VALID_REFERRAL_CODES.some((code) => code === body.collector.referralCode.trim().toUpperCase())) {
@@ -101,7 +97,6 @@ export function createOrder(user: DbUser, body: CreateOrderBody, idempotencyKey:
   const cart = resolveCart({ user, guestCartId: null });
   if (cart.items.length === 0) throw new ServerError(422, "VALIDATION_ERROR", "O carrinho está vazio.");
 
-  // 3) Cenários "uma vez por reset": mexem no catálogo NO MOMENTO da compra
   const f = flags();
   const first = cart.items[0];
   if (first && f.priceChangeOnCheckout && consumeOnce("price-change")) {
@@ -113,7 +108,6 @@ export function createOrder(user: DbUser, body: CreateOrderBody, idempotencyKey:
   }
   const hold = Boolean(f.orderTimeoutOnce && consumeOnce("order-timeout"));
 
-  // 4) Estoque e conteúdo da cotação
   const conflicts = availabilityConflicts(cart);
   if (conflicts.length > 0) {
     throw new ServerError(409, "AVAILABILITY_CONFLICT", "Alguns itens não têm mais estoque suficiente.", { meta: { items: conflicts } });
@@ -130,7 +124,6 @@ export function createOrder(user: DbUser, body: CreateOrderBody, idempotencyKey:
   const quote = issueQuote(cart, user.id, input);
   if (!quote.purchasable) throw new ServerError(409, "AVAILABILITY_CONFLICT", "Há itens indisponíveis no carrinho.", { meta: { items: availabilityConflicts(cart) } });
 
-  // 5) Cria o pedido pendente (snapshot da cotação)
   const now = clock.now();
   const outcome: OrderOutcome = f.orderOutcome ?? "confirmed";
   const lines = quote.lines.map((line) => ({
@@ -194,14 +187,12 @@ function scheduleSettle(record: DbOrder): void {
   later(Math.max(0, record.settleAt - clock.now()) + extra, () => settleOrder(record.order.id, record.outcome));
 }
 
-/** Reagenda a liquidação dos pendentes (chamado no boot: o refresh não pode deixar pedido preso). */
 export function rescheduleSettlements(): void {
   for (const record of Object.values(getDb().orders)) {
     if (record.order.status === "pending") scheduleSettle(record);
   }
 }
 
-/** Liquidação preguiçosa: ao LER um pedido vencido, ele já aparece resolvido. */
 export function settleIfDue(orderId: string): void {
   const record = getDb().orders[orderId];
   if (record && record.order.status === "pending" && clock.now() >= record.settleAt) {
@@ -209,7 +200,6 @@ export function settleIfDue(orderId: string): void {
   }
 }
 
-/** Resolve um pedido pendente (idempotente: terminais não mudam). */
 export function settleOrder(orderId: string, status: OrderOutcome): Order {
   const record = getDb().orders[orderId];
   if (!record) throw notFound("Pedido");
@@ -246,7 +236,6 @@ export function settleOrder(orderId: string, status: OrderOutcome): Order {
   });
 
   if (finalStatus === "confirmed") {
-    // Baixa o estoque (emite nft.updated) e remove do carrinho só o que foi comprado.
     for (const item of record.items) {
       const current = editionState(item.nftId, item.editionId)?.available ?? 0;
       updateNft(item.nftId, { available: current - item.quantity, editionId: item.editionId });

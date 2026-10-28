@@ -4,8 +4,6 @@ import { AppButton, AppEmpty, AppError } from "@/components/ui";
 import { useFavorites } from "@/modules/favorites";
 import { NftGrid, NftGridSkeleton } from "@/modules/nfts/components/NftGrid";
 
-// Lista de interesse = favoritos do usuário (item do menu "Meu perfil"). Dono: Agente E.
-// A página fica na rota (camada de composição) e reaproveita a grade do catálogo.
 export const Route = createFileRoute("/_auth/perfil/favoritos")({
   head: () => ({ meta: [{ title: "Lista de interesse · Kurio" }] }),
   component: FavoritesPage,

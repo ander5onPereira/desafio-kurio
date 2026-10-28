@@ -40,11 +40,9 @@ export const nftUpdatedEventSchema = z.object({
   resource: z.object({ kind: z.literal("nft"), id: idSchema }),
   payload: z.object({
     nftId: idSchema,
-    /** Preço/estoque da edição padrão e soma de disponibilidade (campos do card). */
     price: ethString,
     compareAtPrice: ethString.nullable(),
     available: z.number().int().min(0),
-    /** Estado por edição (preço e estoque), para detalhe e carrinho. */
     editions: z.array(
       z.object({
         id: idSchema,
@@ -61,7 +59,6 @@ export const orderUpdatedEventSchema = z.object({
   ...envelopeBase,
   type: z.literal("order.updated"),
   resource: z.object({ kind: z.literal("order"), id: idSchema }),
-  /** O pedido completo (a versão do envelope = order.version). */
   payload: z.object({ order: orderSchema }),
 });
 export type OrderUpdatedEvent = z.infer<typeof orderUpdatedEventSchema>;

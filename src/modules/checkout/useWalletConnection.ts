@@ -20,7 +20,6 @@ interface Selection {
 
 interface InternalState {
   status: WalletConnectionStatus;
-  /** Chave da seleção para a qual o estado vale. */
   key: string | null;
   message: string | null;
 }
@@ -55,7 +54,6 @@ export function useWalletConnection(selection: Selection) {
     onError: (error) => setState((current) => ({ ...current, message: error.message })),
   });
 
-  // Estado de uma seleção antiga não vale para a atual.
   const effectiveStatus: WalletConnectionStatus = state.key === key ? state.status : "idle";
 
   return {

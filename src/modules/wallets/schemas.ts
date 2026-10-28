@@ -29,7 +29,6 @@ export const walletFormSchema = walletFieldsSchema
     }
   });
 
-/** Campos que a API pode devolver em `fieldErrors` (nomes iguais aos do contrato). */
 export const WALLET_FIELD_NAMES = [
   "displayName",
   "nickname",
@@ -62,7 +61,6 @@ export function walletToDefaults(wallet: Wallet): WalletFormDefaults {
   };
 }
 
-/** "Igual à carteira principal": copia os dados da principal para a secundária (outra função e apelido). */
 export function copyFromPrimary(primary: Wallet, role: WalletRole): WalletFormDefaults {
   return { ...walletToDefaults(primary), role };
 }

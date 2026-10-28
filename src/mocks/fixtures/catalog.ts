@@ -50,15 +50,12 @@ export interface CatalogEdition {
   supply: number | null;
   price: string;
   compareAtPrice: string | null;
-  /** Estoque inicial (o estoque atual vive no DbNftState). */
   available: number;
 }
 
 export interface CatalogNft {
   id: string;
-  /** "0042" */
   tokenId: string;
-  /** "Emerald Ape #042" */
   name: string;
   artwork: ArtworkKey;
   alt: string;
@@ -94,7 +91,6 @@ interface HeroSpec {
   maxPerOrder: number;
 }
 
-/** Ordem = ordem da 1ª página do Figma (sort=recent). */
 const HERO_SPECS: HeroSpec[] = [
   { name: "Emerald Ape", token: 42, artwork: "emerald", price: "1.19", collectionId: "arte-digital", network: "ethereum", defaultEdition: "ed-1-50", rare: false, stock: { "ed-1-1": 1, "ed-1-10": 4, "ed-1-50": 50, "ed-open": 150 }, attributes: ["Óculos", "Esmeralda", "Raro"], maxPerOrder: 12 },
   { name: "Sage Nomad", token: 9, artwork: "sage", price: "1.69", collectionId: "fotografia", network: "polygon", defaultEdition: "ed-1-50", rare: false, stock: { "ed-1-10": 6, "ed-1-50": 30, "ed-open": 90 }, attributes: ["Chapéu", "Moletom", "Sereno"], maxPerOrder: 10 },
@@ -262,7 +258,6 @@ function buildCatalog(): CatalogNft[] {
 export const CATALOG: readonly CatalogNft[] = buildCatalog();
 export const CATALOG_BY_ID: ReadonlyMap<string, CatalogNft> = new Map(CATALOG.map((nft) => [nft.id, nft]));
 
-/** Ids dos NFTs do Figma usados em carrinho/recomendações. */
 export const FIGMA_IDS = {
   emerald: "emerald-ape-042",
   sage: "sage-nomad-009",

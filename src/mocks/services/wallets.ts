@@ -6,7 +6,6 @@ import { clock } from "../lib/clock";
 import { flags } from "../scenarios/runtime";
 import { ServerError, notFound, validation } from "./errors";
 
-/** Carteiras do usuário (principal e secundária) e simulação de conexão. */
 const toWallet = (record: DbWallet): Wallet => {
   const { userId: _userId, ...wallet } = record;
   return wallet;

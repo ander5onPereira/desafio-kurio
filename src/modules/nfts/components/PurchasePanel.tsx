@@ -12,11 +12,9 @@ interface PurchasePanelProps {
   edition: NftEdition;
   quantity: number;
   onQuantityChange: (quantity: number) => void;
-  /** `inline` = bloco do desktop; `bar` = barra fixa inferior do mobile. */
   layout: "inline" | "bar";
 }
 
-/** Máximo comprável: o menor entre a disponibilidade da edição e o limite por pedido. */
 export const maxPurchasable = (nft: NftDetail, edition: NftEdition) => Math.min(edition.available, nft.maxPerOrder);
 
 /**

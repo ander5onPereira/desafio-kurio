@@ -24,7 +24,6 @@ export type ConnectionStatus = "connected" | "reconnecting" | "offline";
 
 const SESSION_KEY = "kurio.session";
 
-/** Token de acesso atual, lido da sessão persistida (o auth guarda a renovação ali). */
 function readAccessToken(): string | undefined {
   try {
     const raw = window.localStorage.getItem(SESSION_KEY);
@@ -49,7 +48,6 @@ class RealtimeConnection {
   /** Descarta resultados de imports/conexões antigas quando a identidade muda no meio do caminho. */
   private generation = 0;
 
-  /** Efeitos (toast/anúncio) registrados pelo hook; ficam fora para o núcleo seguir testável. */
   setEffects(effects: ApplyEffects) {
     this.effects = effects;
   }
@@ -63,7 +61,6 @@ class RealtimeConnection {
     };
   };
 
-  /** Registra um consumidor. Devolve a função que o libera (use no cleanup do efeito). */
   acquire(): () => void {
     this.refs += 1;
     if (this.releaseTimer) {
@@ -83,7 +80,6 @@ class RealtimeConnection {
     };
   }
 
-  /** Reavalia a identidade: (re)conecta quando o usuário muda; derruba se ninguém mais usa. */
   syncWithAuth() {
     const snapshot = authStore.getSnapshot();
     if (snapshot.status === "loading") return;
@@ -147,7 +143,6 @@ class RealtimeConnection {
     applyEvent({ queryClient, scope: scopeOf(userId), effects: this.effects }, event);
   }
 
-  /** Reconciliação após reconexão: refaz as consultas ATIVAS (catálogo, detalhe, carrinho, cotação, pedido). */
   private reconcileWithRest() {
     void queryClient.invalidateQueries({ refetchType: "active" });
   }
@@ -158,7 +153,6 @@ class RealtimeConnection {
     this.statusListeners.forEach((listener) => listener());
   }
 
-  /** Remove listeners e fecha a conexão (sem deixar nada da sessão anterior). */
   private teardown() {
     this.generation += 1; // invalida qualquer import/conexão em andamento
     const socket = this.socket;
@@ -171,7 +165,6 @@ class RealtimeConnection {
     this.setStatus("offline");
   }
 
-  /** Só para testes/diagnóstico: quantos listeners de evento estão registrados. */
   debugListenerCount(): number {
     const socket = this.socket;
     if (!socket) return 0;

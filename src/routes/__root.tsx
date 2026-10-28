@@ -25,7 +25,6 @@ export const Route = createRootRouteWithContext<RouterContext>()({
  * cada página deve ter um único <h1> e definir `head: () => ({ meta: [{ title: "… · Kurio" }] })`.
  */
 function RootLayout() {
-  // Socket.IO: conecta/desconecta conforme a sessão (implementação no módulo realtime).
   useRealtime();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const chrome = getChrome(pathname);

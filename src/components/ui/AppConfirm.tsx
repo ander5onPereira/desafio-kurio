@@ -11,9 +11,7 @@ export interface AppConfirmProps {
   cancelLabel?: string;
   onConfirm: () => void;
   isLoading?: boolean;
-  /** Ação destrutiva (remover, sair): botão de confirmação em vermelho. */
   destructive?: boolean;
-  /** Conteúdo extra entre a descrição e os botões (ex.: lista do que mudou). */
   children?: ReactNode;
 }
 

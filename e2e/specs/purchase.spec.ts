@@ -9,18 +9,15 @@ test("compra completa: detalhe → carrinho → pagamento → recibo confirmado"
   await loginAs("ana", { redirect: "/" });
   await purchaseThroughCheckout(page, isMobile);
 
-  // Recibo (rota própria, acesso direto/refresh possível).
   await expect(page).toHaveURL(/\/pedidos\//);
   await expect(page.getByText("Seus NFTs agora estão na sua carteira")).toBeVisible();
   await expect(page.getByText("Emerald Ape #042").first()).toBeVisible();
 
-  // Resultado no servidor simulado: existe um pedido CONFIRMADO com esse item.
   const orders = await listOrders(kurio);
   const confirmed = orders.filter((order) => order.status === "confirmed");
   expect(confirmed).toHaveLength(1);
   expect(confirmed[0]!.lines.map((line) => line.name)).toContain("Emerald Ape #042");
 
-  // O carrinho perde apenas o que foi comprado.
   expect((await cartItems(kurio)).some((item) => item.nftId === "emerald-ape-042")).toBe(false);
 });
 
@@ -43,7 +40,6 @@ test("o recibo sobrevive ao refresh e mantém o snapshot do pedido", async ({ pa
 
 test("a confirmação não aparece para pedido que não foi confirmado", async ({ page, kurio, loginAs }) => {
   await loginAs("ana", { redirect: "/" });
-  // Pedido inexistente: nada de recibo, só o estado de "não encontrado".
   await page.goto("/pedidos/ord_inexistente");
   await expect(page.getByText("Seus NFTs agora estão na sua carteira")).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Pedido não encontrado" })).toBeVisible();

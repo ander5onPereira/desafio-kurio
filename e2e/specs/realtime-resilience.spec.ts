@@ -16,7 +16,6 @@ test("evento duplicado não reaplica o efeito", async ({ page, kurio }) => {
   const { eventId } = await kurio.updateNft(NFT, { price: "1.49", editionId: EDITION });
   await expect(page.getByText("1.49").first()).toBeVisible();
 
-  // Reenvia o MESMO evento (mesmo id e versão): a tela não muda e nada é reaplicado.
   await kurio.replayEvent(eventId);
   await expect(page.getByText("1.49").first()).toBeVisible();
   await expect(page.getByText("1.19")).toHaveCount(0);
@@ -28,7 +27,6 @@ test("evento antigo (versão menor) nunca regride um estado mais recente", async
   await kurio.updateNft(NFT, { price: "1.59", editionId: EDITION });
   await expect(page.getByText("1.59").first()).toBeVisible();
 
-  // O servidor reenvia um evento com versão ANTIGA do mesmo NFT.
   await kurio.emitStale(NFT);
   // Se regredisse, o preço antigo voltaria a aparecer; esperamos o estado novo se manter.
   await expect(page.getByText("1.59").first()).toBeVisible();
@@ -44,7 +42,6 @@ test("queda do websocket: ao reconectar a tela reconcilia com o servidor", async
   await kurio.updateNft(NFT, { price: "1.88", editionId: EDITION });
   await kurio.restoreSocket();
 
-  // Após reconectar, a reconciliação via REST traz o preço novo.
   await expect(page.getByText("1.88").first()).toBeVisible({ timeout: 20_000 });
 });
 

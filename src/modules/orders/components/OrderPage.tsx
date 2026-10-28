@@ -112,7 +112,6 @@ export function OrderPage({ orderId }: { orderId: string }) {
     );
   }
 
-  // confirmed → recibo (modal no desktop, tela cheia no mobile), como no Figma.
   return (
     <Container className="py-16">
       <h1 className="sr-only">Pedido confirmado</h1>

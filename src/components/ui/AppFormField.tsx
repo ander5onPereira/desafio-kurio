@@ -2,7 +2,6 @@ import { useId, type ReactNode } from "react";
 import { CircleAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-/** Props de acessibilidade que o campo filho deve receber (ids ligados ao label e às mensagens). */
 export interface FormFieldControlProps {
   id: string;
   "aria-describedby"?: string;
@@ -12,14 +11,10 @@ export interface FormFieldControlProps {
 
 export interface AppFormFieldProps {
   label: ReactNode;
-  /** Mostra o asterisco (cor de destaque) e marca o campo com aria-required. */
   required?: boolean;
-  /** Texto de ajuda sob o campo. */
   helper?: ReactNode;
-  /** Mensagem de erro (ex.: de React Hook Form ou fieldErrors da API). Exibe ícone + texto. */
   error?: string;
   className?: string;
-  /** Renderiza visualmente apenas para leitores de tela (label curto em campos óbvios). */
   hideLabel?: boolean;
   /**
    * O filho pode ser um elemento (você passa `id` por conta própria via `htmlFor`) ou, o

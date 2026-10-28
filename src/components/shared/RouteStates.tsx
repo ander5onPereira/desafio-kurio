@@ -9,7 +9,6 @@ import { Container } from "@/components/layout/Container";
  * RouteError, RouteNotFound.
  */
 
-/** Esqueleto de página genérico (título + blocos), com dimensões fixas para não gerar CLS. */
 export function RoutePending() {
   return (
     <Container className="py-8">
@@ -26,7 +25,6 @@ export function RoutePending() {
   );
 }
 
-/** Erro de carregamento de rota com recuperação ("Tentar novamente"). */
 export function RouteError({ error, reset }: ErrorComponentProps) {
   return (
     <Container className="py-12">
@@ -36,7 +34,6 @@ export function RouteError({ error, reset }: ErrorComponentProps) {
   );
 }
 
-/** 404 — rota inexistente. */
 export function RouteNotFound() {
   return (
     <Container className="flex flex-col items-center gap-4 py-24 text-center">
